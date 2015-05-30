@@ -1,5 +1,7 @@
 {
   "generators": {
-    "modules": {}
+    "modules": {
+     "controller": "sails-generate-controller"
+    }
   }
 }
