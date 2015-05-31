@@ -6,9 +6,18 @@
 */
 
 module.exports = {
-
-  attributes: {
-
-  }
+	autoPK: true,
+	attributes: {
+		creator: {
+			type: 'string'
+		},
+		joinee: {
+			type: 'string'
+		},
+		isAvailable: {
+			type: 'boolean',
+			defaultsTo: true
+		}
+	}
 };
 
