@@ -22,6 +22,7 @@
     socket.on('joinGame', function messageReceived(message) {
       log('Opponenet Joined ', message);
         window.isMyturn = true;
+        alert('You have an opponent joined. Start playing');
     });
     socket.on('noroom', function messageReceived(message) {
       log('New comet message received :: ', message);

@@ -74,12 +74,13 @@ module.exports.connections = {
   *                                                                          *
   *                                                                          *
   ***************************************************************************/
-  somePostgresqlServer: {
+  postgresqlServer: {
     adapter: 'sails-postgresql',
-    host: 'YOUR_POSTGRES_SERVER_HOSTNAME_OR_IP_ADDRESS',
-    user: 'YOUR_POSTGRES_USER',
-    password: 'YOUR_POSTGRES_PASSWORD',
-    database: 'YOUR_POSTGRES_DB'
+    host: process.env.HEROKU_POSTGRES_SNAKES_HOSTNAME,
+    user:  process.env.HEROKU_POSTGRES_SNAKES_USER,
+    password:  process.env.HEROKU_POSTGRES_SNAKES_PASSWORD,
+    database:  process.env.HEROKU_POSTGRES_SNAKES_DATABASE,
+    port: process.env.HEROKU_POSTGRES_SNAKES_PORT
   }
 
 

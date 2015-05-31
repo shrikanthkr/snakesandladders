@@ -3,16 +3,9 @@ body{
 }
 
 .ladder-image{
-	  /* Set rules to fill background */
     max-height: 100%;
-
-    /* Set up proportionate scaling */
     height: auto;
-
-    /* Set up positioning */
     position: fixed;
-
-    /* Align horizontally */
     left:0;
     right:0;
     margin:0 auto;   
@@ -55,6 +48,6 @@ body{
 }
 
 .places{
-    background: green;
+    display: inline-block;
     color:white;
 }
