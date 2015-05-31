@@ -48,7 +48,7 @@ drawTable();
 
 
 var $number = $('#number'),
-$player-one = $('#playre-one'),
+$playerOne = $('#player-one'),
 playerOnePosition = 0,
 playerTwoPosition = 0,
 $rows = $('#tables-container').find('tr');
@@ -58,13 +58,47 @@ $('#dice').on('click',function (argument) {
 	var number = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
 	$number.text(number);
 	playerOnePosition+=number;
-	placeIcon($rows.find('[data-nodeId="'+number+'"]'));
+	playerOnePosition = decidePosition(playerOnePosition);
 });
 
+function decidePosition(position){
+	var positionChange = ladders[position] || snakes[position] || position;
+	placeIcon($rows.find('[data-nodeId="'+position+'"]'));
+	setTimeout(function(){
+		placeIcon($rows.find('[data-nodeId="'+positionChange+'"]'));
+	},1000);
+	return positionChange;
+}
 function placeIcon(node){
 	var $node = $(node),
 	positionX = $node.offset().left, 
 	positionY = $node.offset().top;
+	$playerOne.css({top: positionY, left: positionX});
+
+}
 
 
+var ladders = {
+	8: 26,
+	21:82,
+	50:91,
+	62:96,
+	66:87,
+	80:100
+};
+
+var snakes  = {
+	44:19,
+	46:5,
+	48:9,
+	52:11,
+	55:7,
+	59:17,
+	64:36,
+	69:33,
+	73:1,
+	83:19,
+	92:51,
+	95:24,
+	98:28
 }

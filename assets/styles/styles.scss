@@ -31,6 +31,10 @@ body{
 		width: 70px;
     height:70px;
 }
+.icons.small{
+	width: 20px;
+    height:20px;
+}
 #dice{
     background: green;
     position: absolute;
@@ -40,4 +44,11 @@ body{
 .player.one{
     left:60px;
     top:60px;
+}
+
+.transition {
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
 }
