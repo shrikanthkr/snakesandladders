@@ -1,3 +1,43 @@
 body{
 	
 }
+
+.ladder-image{
+	  /* Set rules to fill background */
+    max-height: 100%;
+
+    /* Set up proportionate scaling */
+    height: auto;
+
+    /* Set up positioning */
+    position: fixed;
+
+    /* Align horizontally */
+    left:0;
+    right:0;
+    margin:0 auto;   
+}
+
+.center{
+    text-align: center;
+}
+.absolute{
+    position: absolute;
+}
+.display-none{
+    display: none;
+}
+.icons{
+		width: 70px;
+    height:70px;
+}
+#dice{
+    background: green;
+    position: absolute;
+    left:10px;
+    top:10px;
+}
+.player.one{
+    left:60px;
+    top:60px;
+}
