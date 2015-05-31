@@ -80,7 +80,8 @@ module.exports.connections = {
     user:  process.env.HEROKU_POSTGRES_SNAKES_USER,
     password:  process.env.HEROKU_POSTGRES_SNAKES_PASSWORD,
     database:  process.env.HEROKU_POSTGRES_SNAKES_DATABASE,
-    port: process.env.HEROKU_POSTGRES_SNAKES_PORT
+    port: process.env.HEROKU_POSTGRES_SNAKES_PORT,
+    poolSize: 2
   }
 
 
