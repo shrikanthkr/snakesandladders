@@ -28,6 +28,7 @@ body{
     display: none;
 }
 .icons{
+    position: absolute;
 		width: 70px;
     height:70px;
 }
@@ -35,12 +36,7 @@ body{
 	width: 20px;
     height:20px;
 }
-#dice{
-    background: green;
-    position: absolute;
-    left:10px;
-    top:10px;
-}
+
 .player.one{
     left:60px;
     top:60px;
@@ -56,4 +52,9 @@ body{
   -moz-transition: all .7s ease-in-out;
   -o-transition: all .7s ease-in-out;
   transition: all .7s ease-in-out;
+}
+
+.places{
+    background: green;
+    color:white;
 }

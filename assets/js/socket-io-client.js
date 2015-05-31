@@ -20,7 +20,8 @@
 
     // Listen for Comet messages from Sails
     socket.on('joinGame', function messageReceived(message) {
-      log('New comet message received :: ', message);
+      log('Opponenet Joined ', message);
+        window.isMyturn = true;
     });
     socket.on('noroom', function messageReceived(message) {
       log('New comet message received :: ', message);
@@ -28,6 +29,10 @@
     socket.on('message', function messageReceived(message) {
       log('New comet message received :: ', message);
       window.onPlay(message);
+    });
+     socket.on('created', function messageReceived(message) {
+      log('Game created ', message);
+        window.isMyturn = false;
     });
   });
 

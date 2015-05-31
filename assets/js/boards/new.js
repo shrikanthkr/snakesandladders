@@ -23,7 +23,7 @@ var snakes  = {
 	95:24,
 	98:28
 }
-
+window.isMyturn = false;
 function drawTable() {
 	var $ladderImage  =$('#ladder-image'),
 	cellWidth = $ladderImage.width()/10,
@@ -71,24 +71,34 @@ try{
 
 
 var $number = $('#number'),
-isMyturn = true,
+isMyturn = false,
 $playerOne = $('#player-one'),
 $playerTwo = $('#player-two'),
+$playerOnePosition = $('#player-one-position'),
+$playerTwoPosition = $('#player-two-position'),
 playerOnePosition = 0,
 playerTwoPosition = 0,
 $rows = $('#tables-container').find('tr');
 $('#dice').on('click',function (argument) {
-	var number = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
-	$number.text(number);
-	playerOnePosition+=number;
-	playerOnePosition = decidePosition(playerOnePosition,$playerOne);
-	io.socket.get('/diceRolled', {number :number});
-
+	if(window.isMyturn){
+		var number = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
+		$number.text(number);
+		playerOnePosition+=number;
+		playerOnePosition = decidePosition(playerOnePosition,$playerOne);
+		$playerOnePosition.html(playerOnePosition);
+		io.socket.get('/diceRolled', {number :number});
+		window.isMyturn = false;
+	}else{
+		alert('Waiting for the opponent to play');
+	}
+	
 });
 
 window.onPlay = function(data){
+	window.isMyturn = true;
 	playerTwoPosition+=data.number;
-	decidePosition(playerTwoPosition,$playerTwo);
+	playerTwoPosition = decidePosition(playerTwoPosition,$playerTwo);
+	$playerTwoPosition.html(playerTwoPosition);
 }
 
 function decidePosition(position,$player){
