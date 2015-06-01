@@ -13,8 +13,8 @@
  */
 
 module.exports = function(grunt) {
-
-
+	
+	grunt.registerTask('heroku:production', 'clean sass mincss uglify');
 	// Load the include-all library in order to require all of our grunt
 	// configurations and task registrations dynamically.
 	var includeAll;
@@ -74,7 +74,7 @@ module.exports = function(grunt) {
 	if (!registerDefinitions.default) {
 		registerDefinitions.default = function (grunt) { 
 			grunt.registerTask('default', []); 
-			grunt.registerTask('heroku:production', 'clean sass mincss uglify');
+
 		};
 	}
 
