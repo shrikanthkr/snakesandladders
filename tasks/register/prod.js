@@ -1,5 +1,8 @@
 module.exports = function (grunt) {
-	grunt.registerTask('prod', [
+	var env = process.end.NODE_ENV, 
+	task = env? 'heroku:production':'prod';
+
+	grunt.registerTask(task, [
 		'compileAssets',
 		'concat',
 		'uglify',
