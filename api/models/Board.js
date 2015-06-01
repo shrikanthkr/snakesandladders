@@ -6,6 +6,7 @@
 */
 
 module.exports = {
+	tableName: "boards",
 	autoPK: true,
 	attributes: {
 		creator: {
