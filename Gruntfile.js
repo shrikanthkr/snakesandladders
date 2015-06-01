@@ -32,7 +32,7 @@ module.exports = function(grunt) {
 			console.error();
 
 			grunt.registerTask('default', []);
-			grunt.registerTask('heroku:production', 'clean sass mincss uglify');
+		
 			return;
 		}
 	}
@@ -72,7 +72,10 @@ module.exports = function(grunt) {
 
 	// (ensure that a default task exists)
 	if (!registerDefinitions.default) {
-		registerDefinitions.default = function (grunt) { grunt.registerTask('default', []); };
+		registerDefinitions.default = function (grunt) { 
+			grunt.registerTask('default', []); 
+			grunt.registerTask('heroku:production', 'clean sass mincss uglify');
+		};
 	}
 
 	// Run task functions to configure Grunt.
