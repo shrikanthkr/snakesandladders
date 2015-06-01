@@ -32,6 +32,7 @@ module.exports = function(grunt) {
 			console.error();
 
 			grunt.registerTask('default', []);
+			grunt.registerTask('heroku:production', 'clean sass mincss uglify');
 			return;
 		}
 	}
