@@ -13,7 +13,7 @@
  */
 
 module.exports = function(grunt) {
-	
+	grunt._hookTimeout  = 60000;
 	grunt.registerTask('heroku:production',['clean:dev']);
 	// Load the include-all library in order to require all of our grunt
 	// configurations and task registrations dynamically.
