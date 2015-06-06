@@ -25,6 +25,12 @@
         $('#player-waiting-modal').foundation('reveal', 'close');
         $('#player-joined-modal').foundation('reveal', 'open');
     });
+    socket.on('gameOver', function messageReceived(data) {
+      log('Opponenet Joined ', message);
+        window.isMyturn = true;
+       $('#gameOver-modal').find('#message').html('You Lose!');
+       $('#gameOver-modal').foundation('reveal', 'open');
+    });
     socket.on('message', function messageReceived(message) {
       log('New comet message received :: ', message);
       window.onPlay(message);

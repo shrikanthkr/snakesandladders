@@ -1,6 +1,7 @@
 var ladders = {
 	8: 26,
 	21:82,
+	43:77,
 	50:91,
 	54:93,
 	62:96,
@@ -83,7 +84,16 @@ $('#dice').on('click',function (argument) {
 	if(window.isMyturn){
 		var number = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
 		$number.text(number);
-		playerOnePosition+=number;
+		if(playerOnePosition+number > 100){
+
+		}else if(playerOnePosition+number === 100 ){
+			playerOnePosition+=number;
+			io.socket.get('/gameOver', {number :number});
+			$('#gameOver-modal').find('#message').html('You Win!');
+		}else{
+			playerOnePosition+=number;
+		}
+		
 		playerOnePosition = decidePosition(playerOnePosition,$playerOne);
 		$playerOnePosition.html(playerOnePosition);
 		io.socket.get('/diceRolled', {number :number});
@@ -97,7 +107,9 @@ $('#dice').on('click',function (argument) {
 
 window.onPlay = function(data){
 	window.isMyturn = true;
-	playerTwoPosition+=data.number;
+	if( !( playerTwoPosition+data.number > 100 )){
+		playerTwoPosition+=data.number;
+	}
 	playerTwoPosition = decidePosition(playerTwoPosition,$playerTwo);
 	$playerTwoPosition.html(playerTwoPosition);
 }

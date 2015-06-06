@@ -65,6 +65,12 @@
  			console.log('dice rolled');
  			console.log('publishing:'+board.id);
  			socket.broadcast.to(board.id).emit('message',{number: req.param('number')});
+ 		},
+ 		gameOver: function(req,res) {
+ 			var socket = req.socket,
+ 			io = sails.io,
+ 			board =socket.client.board;
+ 			socket.broadcast.to(board.id).emit('gameOver',{winner: socket.id});
  		}
  	};
 

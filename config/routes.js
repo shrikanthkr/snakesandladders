@@ -55,6 +55,10 @@ module.exports.routes = {
   '/diceRolled': {
     controller: 'boards',
     action : 'diceRolled'
+  },
+  '/gameOver': {
+    controller: 'boards',
+    action : 'gameOver'
   }
 
   /***************************************************************************
