@@ -36,28 +36,20 @@
  								socket.broadcast.to(updatedBoards[0].id).emit('joinGame',{message: 'Joined', board: updatedBoards});
  								return res.json({message: 'Joined', board: updatedBoards});
  						}else{
- 							return res.json({error: 'Wait for some time'});
- 						}
- 				
- 					
- 					
+							 			Board.create({
+							 				creator: socket.id,
+							 				joinee: null
+							 			}).exec(function(err,board){
+							 				console.log('created :'+board.id);
+							 				socket.client.board = board;
+							 				socket.join(board.id);
+							 				socket.emit('created',{message: board});
+							 			});
+				 					}
  				});
  			});
  		},
 
- 		createGame: function(req,res) {
- 			var socket = req.socket;
- 			var io = sails.io;
- 			Board.create({
- 				creator: socket.id,
- 				joinee: null
- 			}).exec(function(err,board){
- 				console.log('created :'+board.id);
- 				socket.client.board = board;
- 				socket.join(board.id);
- 				socket.emit('created',{message: board});
- 			});
- 		},
  		diceRolled: function(req,res) {
  			var socket = req.socket,
  			io = sails.io,
