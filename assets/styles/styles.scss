@@ -5,7 +5,7 @@ body{
     width:30%;
 }
 .reveal-modal-bg {
-position: fixed;
+    position: fixed;
 }
 .reveal-modal{
     left:0;
@@ -20,22 +20,54 @@ position: fixed;
     right:0;
     margin:0 auto;   
     table{
-           opacity: 0;
-    }
+       opacity: 0;
+   }
 }
 
 .center{
     text-align: center;
 }
+.block{
+    display: block;
+}
 .absolute{
     position: absolute;
+}
+.relative{
+    position: relative;
+}
+.relative.center-horizontal{
+    left:0;
+    right:0;
+    margin:auto;
+}
+.absolute.center-horizontal{
+    left:0;
+    right:0;
+    margin:auto;
+}
+.absolute.center-both{
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+    height:50px;
+}
+.header{
+    font-weight: 900;
+    color: #ffffff;
+    font-size: 5em;
+    margin-bottom: 20px;
+    margin-top: 2em;
+    text-align: center;
 }
 .display-none{
     display: none;
 }
 .icons{
     position: absolute;
-		width: 70px;
+    width: 70px;
     height:70px;
 }
 .icons.small{
@@ -62,4 +94,22 @@ position: fixed;
 
 .places{
     display: inline-block;
+}
+.button.white,.input.white{
+ background: white;
+ border: 1px solid white;
+ border-radius: 5px;
+ margin-bottom: 20px;
+}
+.button.white.transparent,.input.white.transparent{
+    background: transparent;
+    width: 180px;
+    color:white;
+}
+.button.white.transparent:hover{
+    background: #666;
+    width: 180px;
+}
+.input.white.transparent:focus{
+color:white;
 }
