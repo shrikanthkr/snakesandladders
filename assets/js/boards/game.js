@@ -114,6 +114,7 @@ window.onPlay = function(data){
 	if( !( playerTwoPosition+data.number > 100 )){
 		playerTwoPosition+=data.number;
 	}
+	$number.html(data.number);
 	playerTwoPosition = decidePosition(playerTwoPosition,$playerTwo);
 	$playerTwoPosition.html(playerTwoPosition);
 }

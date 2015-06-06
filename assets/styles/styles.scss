@@ -65,25 +65,26 @@ body{
 .display-none{
     display: none;
 }
+.score-board {
+    background: rgba(0,0,0,0.8);
+    color:white;
+    padding: 20px;
+    position: relative;
+    top:10px;
+    left:10px;
+}
 .icons{
     position: absolute;
     width: 70px;
     height:70px;
+    display:inline-block;
 }
 .icons.small{
 	width: 20px;
     height:20px;
 }
 
-.player.one{
-    left:60px;
-    top:60px;
-}
 
-.player.two{
-    left:60px;
-    top:90px;
-}
 
 .transition {
   -webkit-transition: all .7s ease-in-out;
