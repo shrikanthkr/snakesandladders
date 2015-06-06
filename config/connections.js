@@ -85,7 +85,6 @@ module.exports.connections = {
     ssl: true
   }
 
-
   /***************************************************************************
   *                                                                          *
   * More adapters: https://github.com/balderdashy/sails                      *
