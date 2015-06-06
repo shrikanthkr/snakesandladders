@@ -22,10 +22,8 @@
     socket.on('joinGame', function messageReceived(message) {
       log('Opponenet Joined ', message);
         window.isMyturn = true;
-        alert('You have an opponent joined. Start playing');
-    });
-    socket.on('noroom', function messageReceived(message) {
-      log('New comet message received :: ', message);
+        $('#player-waiting-modal').foundation('reveal', 'close');
+        $('#player-joined-modal').foundation('reveal', 'open');
     });
     socket.on('message', function messageReceived(message) {
       log('New comet message received :: ', message);
@@ -34,6 +32,7 @@
      socket.on('created', function messageReceived(message) {
       log('Game created ', message);
         window.isMyturn = false;
+         $('#player-waiting-modal').foundation('reveal', 'open');
     });
   });
 

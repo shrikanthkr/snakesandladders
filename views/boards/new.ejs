@@ -22,6 +22,19 @@ Player Two:
 	<img src="/images/playertwo.png"  alt="Player 2"/>
 </div>
 
+<div id="player-joined-modal" class="reveal-modal tiny center" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <h2 id="modalTitle">Hey!</h2>
+  <p class="lead">A new player hjas joined your game, click to start playing</p>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
+
+<div id="player-waiting-modal" class="reveal-modal tiny" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <h2 id="modalTitle">Hey!</h2>
+  <p class="lead">Waiting for a player to join</p>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
+
+
 <script>
  io.socket.get('/createGame',function serverResponded (body, JWR) {
       console.log('Sails responded with: ', body);

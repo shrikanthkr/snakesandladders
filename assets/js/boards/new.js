@@ -89,7 +89,8 @@ $('#dice').on('click',function (argument) {
 		io.socket.get('/diceRolled', {number :number});
 		window.isMyturn = false;
 	}else{
-		alert('Waiting for the opponent to play');
+		
+		$('#turn-modal').foundation('reveal', 'open');
 	}
 	
 });

@@ -34,8 +34,9 @@
  								socket.client.board = updatedBoards[0];
  								socket.join(updatedBoards[0].id);
  								socket.broadcast.to(updatedBoards[0].id).emit('joinGame',{message: 'Joined', board: updatedBoards});
+ 								return res.json({message: 'Joined', board: updatedBoards});
  						}else{
- 							socket.emit('noroom',{message: 'Wait for some time'});
+ 							return res.json({error: 'Wait for some time'});
  						}
  				
  					

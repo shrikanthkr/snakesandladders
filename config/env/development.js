@@ -11,14 +11,14 @@
  */
 
 module.exports = {
-	hookTimeout: 30000
+	hookTimeout: 30000,
   /***************************************************************************
    * Set the default database connection for models in the development       *
    * environment (see config/connections.js and config/models.js )           *
    ***************************************************************************/
 
   models: {
-    connection: 'postgresqlServer'
+    connection: 'postgresqlServer_dev'
   },
 
 };

@@ -21,10 +21,22 @@ Player Two:
 	<img src="/images/playertwo.png"  alt="Player 2"/>
 </div>
 
+<div id="joinedModal" class="reveal-modal tiny" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <h2 id="modalTitle">Hey!.</h2>
+  <p class="lead"> You have joined a new game.</p>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
+
 <script>
  io.socket.get('/joinGame',function serverResponded (body, JWR) {
  			window.isMyturn = false;
       console.log('Sails responded with: ', body);
+      if(body.error){
+      	$('#error-modal').find('#message').html(body.error);
+      	$('#error-modal').foundation('reveal', 'open');
+      }else{
+      	 $('#joinedModal').foundation('reveal', 'open');
+      }
     });
      console.log('Subscribing to join');
 </script>
