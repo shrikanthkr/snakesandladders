@@ -1,7 +1,14 @@
 <div class='header'>Want to Play?
-<input placeholder="You Name" class='center input white transparent relative block center-horizontal' type="text" value="">
-<a href="/join" class='button white transparent relative block center-horizontal'> Join Game</a>
+	<input placeholder="You Name" class='center input white transparent relative block center-horizontal' type="text" value=""/>
+<a href='/join' id='join' class='button center input white transparent relative block center-horizontal' type="submit" >Join Game</a>
+
 
  </div>
 
+<script>
+$('#join').off().on('click',function (argument) {
+	window.name = $('#name').val() || 'Default';
+});
+
+</script>
 

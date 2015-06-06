@@ -40,6 +40,10 @@
         window.isMyturn = false;
          $('#player-waiting-modal').foundation('reveal', 'open');
     });
+      socket.on('disconnected', function messageReceived(message) {
+      log('Game created ', message);
+         $('#player-disconnected-modal').foundation('reveal', 'open');
+    });
   });
 
 

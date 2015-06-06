@@ -24,6 +24,15 @@ var snakes  = {
 	95:24,
 	98:28
 }
+var $number,
+isMyturn = false,
+$playerOne,
+$playerTwo ,
+$playerOnePosition ,
+$playerTwoPosition ,
+playerOnePosition = 0,
+playerTwoPosition = 0,
+$rows ;
 window.isMyturn = false;
 function drawTable() {
 	var $ladderImage  =$('#ladder-image'),
@@ -61,26 +70,22 @@ function drawTable() {
 			}
 		}
 	}
+	$(myTableDiv).html('');
 	myTableDiv && myTableDiv.appendChild(table);
 	$(myTableDiv).width($ladderImage.width());
+	$number = $('#number'),
+	$playerOne = $('#player-one'),
+	$playerTwo = $('#player-two'),
+	$playerOnePosition = $('#player-one-position'),
+	$playerTwoPosition = $('#player-two-position'),
+	$rows = $('#tables-container').find('tr');	
 }
-try{
+$( window ).resize(function() {
 	drawTable();
-}catch(e){
-
-}
-
-
-var $number = $('#number'),
-isMyturn = false,
-$playerOne = $('#player-one'),
-$playerTwo = $('#player-two'),
-$playerOnePosition = $('#player-one-position'),
-$playerTwoPosition = $('#player-two-position'),
-playerOnePosition = 0,
-playerTwoPosition = 0,
-$rows = $('#tables-container').find('tr');
-$('#dice').on('click',function (argument) {
+	placeIcon($rows.find('[data-nodeId="'+playerOnePosition+'"]'),$playerOne);
+	placeIcon($rows.find('[data-nodeId="'+playerTwoPosition+'"]'),$playerTwo);
+});
+$('body').off('click','#dice').on('click','#dice',function (argument) {
 	if(window.isMyturn){
 		var number = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
 		$number.text(number);
@@ -99,7 +104,6 @@ $('#dice').on('click',function (argument) {
 		io.socket.get('/diceRolled', {number :number});
 		window.isMyturn = false;
 	}else{
-		
 		$('#turn-modal').foundation('reveal', 'open');
 	}
 	
@@ -123,6 +127,7 @@ function decidePosition(position,$player){
 	return positionChange;
 }
 function placeIcon(node,$player){
+	if(node.length <=0) return;
 	var $node = $(node),
 	adjustX = $node.width()/2,
 	adjustY = $node.height()/2,

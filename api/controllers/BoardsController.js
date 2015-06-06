@@ -46,6 +46,7 @@
 							 				socket.emit('created',{message: board});
 							 			});
 				 					}
+				 					
  				});
  			});
  		},

@@ -1,6 +1,6 @@
 
 <div class="container" >
-		<img src="/images/snakesladders.jpg" id='ladder-image' class='ladder-image' alt=""/>
+		<img src="/images/snakesladders.jpg" id='ladder-image' onload=' window.drawTable()' class='ladder-image' alt=""/>
 		<div id='tables-container' class="ladder-image"></div>
 </div>
 
@@ -38,8 +38,20 @@ Player Two:
   <a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div>
 
+<div id="player-disconnected-modal" class="reveal-modal tiny" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <h2 id="modalTitle">Hey!</h2>
+  <p class="lead">Ohter player had left</p>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
+
+<div id="turn-modal" class="reveal-modal tiny" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <h2 id="modalTitle">Hey!</h2>
+  <p class="lead">Waiting for other player to play.</p>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
 <script>
- io.socket.get('/joinGame',function serverResponded (body, JWR) {
+
+ io.socket.post('/joinGame',{name: window.name},function serverResponded (body, JWR) {
  			window.isMyturn = false;
       console.log('Sails responded with: ', body);
       if(body.error){
@@ -50,4 +62,5 @@ Player Two:
       }
     });
      console.log('Subscribing to join');
+    
 </script>

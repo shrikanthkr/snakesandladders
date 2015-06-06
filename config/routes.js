@@ -44,7 +44,7 @@ module.exports.routes = {
     controller: 'boards',
     action : 'join'
   },
-  '/joinGame': {
+  'post /joinGame': {
     controller: 'boards',
     action : 'joinGame'
   },
