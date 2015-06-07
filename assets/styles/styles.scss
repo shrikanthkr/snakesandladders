@@ -65,10 +65,19 @@ body{
 .display-none{
     display: none;
 }
-.score-board {
+.black-container{
     background: rgba(0,0,0,0.8);
     color:white;
     padding: 20px;
+}
+.form{
+    padding: 40px;
+}
+.raduis{
+    border-radius: 5px;
+}
+.score-board {
+    
     position: relative;
     top:10px;
     left:10px;
@@ -104,12 +113,10 @@ body{
 }
 .button.white.transparent,.input.white.transparent{
     background: transparent;
-    width: 180px;
-    color:white;
+        color:white;
 }
 .button.white.transparent:hover{
     background: #666;
-    width: 180px;
 }
 .input.white.transparent:focus{
 color:white;

@@ -1,0 +1,23 @@
+<div class='header'>Want to Play? </div>
+
+<div class=" large-5 medium-8 small-10  large-centered small-centered medium-centered columns ">
+	<form method="POST" action="/login" class='center black-container form radius'>
+<%- req.flash('message') %>
+ <input placeholder="Email" class='center input white transparent relative block center-horizontal' type="email" name="email" value=""/>
+  <input placeholder="Password" class='center input white transparent relative block center-horizontal' type="password" name="password" value=""/>
+  <hr/>
+  <input class='button center input white transparent relative block center-horizontal' type="submit" value="Join">
+</form>
+
+</div>
+
+
+
+
+<script>
+$('#join').off().on('click',function (argument) {
+	window.name = $('#name').val() || 'Default';
+});
+
+</script>
+

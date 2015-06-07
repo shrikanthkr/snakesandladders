@@ -33,8 +33,7 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': {
-    controller: 'boards',
-    action : 'index'
+    view: 'static_pages/index'
   },
   '/new': {
     controller: 'boards',
@@ -55,6 +54,14 @@ module.exports.routes = {
   '/gameOver': {
     controller: 'boards',
     action : 'gameOver'
+  },
+  'post /login': {
+    controller: 'auth',
+    action : 'login'
+  },
+  '/logout': {
+    controller: 'auth',
+    action : 'logout'
   }
 
   /***************************************************************************

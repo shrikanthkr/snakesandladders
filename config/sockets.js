@@ -137,7 +137,7 @@ module.exports.sockets = {
   *                                                                          *
   ***************************************************************************/
   // transports: ["polling", "websocket"]
-  onDisconnect: function(session, socket) {
+  afterDisconnect: function(session, socket) {
     if(socket.board)
     socket.broadcast.to(socket.board.id).emit('disconnected',{message: "Other user left"});
   }
