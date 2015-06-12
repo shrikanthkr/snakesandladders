@@ -35,6 +35,14 @@ module.exports.routes = {
   '/': {
     view: 'static_pages/index'
   },
+  '/users/new': {
+    controller: 'users',
+    action : 'new'
+  },
+  'post /users': {
+    controller: 'users',
+    action : 'create'
+  },
   '/new': {
     controller: 'boards',
     action : 'new'

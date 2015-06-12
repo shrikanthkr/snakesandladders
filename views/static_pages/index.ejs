@@ -2,22 +2,17 @@
 
 <div class=" large-5 medium-8 small-10  large-centered small-centered medium-centered columns ">
 	<form method="POST" action="/login" class='center black-container form radius'>
-<%- req.flash('message') %>
- <input placeholder="Email" class='center input white transparent relative block center-horizontal' type="email" name="email" value=""/>
-  <input placeholder="Password" class='center input white transparent relative block center-horizontal' type="password" name="password" value=""/>
-  <hr/>
-  <input class='button center input white transparent relative block center-horizontal' type="submit" value="Join">
-</form>
+		<%- req.flash('message') %>
+		<input placeholder="Email" class='element input white transparent  ' type="email" name="email" value=""/>
+		<input placeholder="Password" class='input white transparent ' type="password" name="password" value=""/>
+		<input class='button expand element input white transparent ' type="submit" value="Sign In ">
+
+
+		<div class='element'>(or)</div>
+		<a href='users/new' class='button center expand input white transparent  ' type="submit" value="">Sign Up</a>
+	</form>
+
 
 </div>
 
-
-
-
-<script>
-$('#join').off().on('click',function (argument) {
-	window.name = $('#name').val() || 'Default';
-});
-
-</script>
 
