@@ -10,7 +10,8 @@
  		return res.view('users/new');
  	},
  	dashboard: function(req,res) {
- 		Board.find().exec(function(err,boards) {
+ 		Board.find({ where: {isAvailable :true} })
+ 		.exec(function(err,boards) {
  			res.view('users/dashboard',{
  				boards: boards
  			});

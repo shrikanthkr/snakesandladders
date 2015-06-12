@@ -27,6 +27,10 @@ module.exports = {
 		boards: {
 			collection: 'board',
 			via :'players'
+		},
+		my_boards: {
+			collection: "board",
+      via: "owner"
 		}
 	},
 	validateAndCreate: function(user,cb) {

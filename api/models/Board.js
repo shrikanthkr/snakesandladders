@@ -9,10 +9,7 @@ module.exports = {
 	tableName: "boards",
 	autoPK: true,
 	attributes: {
-		creator: {
-			type: 'string'
-		},
-		joinee: {
+		name: {
 			type: 'string'
 		},
 		isAvailable: {
@@ -22,6 +19,9 @@ module.exports = {
 		players : {
 			collection: 'user',
 			via: 'boards'
+		},
+		owner: {
+			model: 'user'
 		}
 	}
 };

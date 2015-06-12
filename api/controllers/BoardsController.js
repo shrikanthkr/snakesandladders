@@ -15,7 +15,24 @@
  	join: function(req,res) {
  		return res.view('boards/join');
  	}, 	
- 	
+ 	create: function(req,res) {
+ 		Board.create({
+ 			name: req.param('name') || 'Default',
+ 			owner: req.user,
+ 			isAvailable: true
+ 		}).exec(function(err,board) {
+ 				return res.redirect('boards/'+board.id);
+ 		});
+ 	},
+ 	show: function(req,res) {
+ 		console.log('showing board: '+req.params['id'])
+ 		Board.find({where: {id: req.params['id']}}).exec(function(err,board) {
+ 			console.log(board);
+ 			res.view('boards/show',{
+ 				board: board
+ 			})
+ 		});
+ 	},
  	joinGame: function(req,res) {
  		var socket = req.socket;
  		var io = sails.io;

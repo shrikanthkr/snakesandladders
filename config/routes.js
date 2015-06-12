@@ -47,9 +47,17 @@ module.exports.routes = {
     controller: 'users',
     action : 'dashboard'
   },
-  '/new': {
+  'post /boards': {
+    controller: 'boards',
+    action : 'create'
+  },
+  '/boards/new': {
     controller: 'boards',
     action : 'new'
+  },
+   '/boards/:id': {
+    controller: 'boards',
+    action: 'show'
   },
   '/join': {
     controller: 'boards',
