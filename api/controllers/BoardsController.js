@@ -15,6 +15,7 @@
  	join: function(req,res) {
  		return res.view('boards/join');
  	}, 	
+ 	
  	joinGame: function(req,res) {
  		var socket = req.socket;
  		var io = sails.io;

@@ -23,6 +23,10 @@ module.exports = {
 			var obj = this.toObject();
 			delete obj.password;
 			return obj;
+		},
+		boards: {
+			collection: 'board',
+			via :'players'
 		}
 	},
 	validateAndCreate: function(user,cb) {

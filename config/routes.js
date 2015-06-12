@@ -43,6 +43,10 @@ module.exports.routes = {
     controller: 'users',
     action : 'create'
   },
+  '/dashboard': {
+    controller: 'users',
+    action : 'dashboard'
+  },
   '/new': {
     controller: 'boards',
     action : 'new'

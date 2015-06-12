@@ -18,6 +18,10 @@ module.exports = {
 		isAvailable: {
 			type: 'boolean',
 			defaultsTo: true
+		},
+		players : {
+			collection: 'user',
+			via: 'boards'
 		}
 	}
 };

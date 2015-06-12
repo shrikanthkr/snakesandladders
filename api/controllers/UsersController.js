@@ -9,6 +9,13 @@
  	new: function(req,res) {
  		return res.view('users/new');
  	},
+ 	dashboard: function(req,res) {
+ 		Board.find().exec(function(err,boards) {
+ 			res.view('users/dashboard',{
+ 				boards: boards
+ 			});
+ 		});
+ 	},
  	create :function(req,res) {
  		var params = UserServices.userParams(req,res);
  		User.validateAndCreate(params,function (err, user){
@@ -22,5 +29,5 @@
  			}
  		});
  	}
-};
+ };
 
