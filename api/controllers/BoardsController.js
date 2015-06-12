@@ -26,9 +26,9 @@
  	},
  	show: function(req,res) {
  		console.log('showing board: '+req.params['id'])
- 		Board.find({where: {id: req.params['id']}}).exec(function(err,board) {
+ 		Board.findOne({id: req.params['id']}).exec(function(err,board) {
  			console.log(board);
- 			res.view('boards/show',{
+ 			res.view({
  				board: board
  			})
  		});
