@@ -10,7 +10,12 @@ module.exports = {
 	autoPK: true,
 	attributes: {
 		name: {
-			type: 'string'
+			type: 'string',
+			defaultsTo: 'Default'
+		},
+		max: {
+			type: 'integer',
+			defaultsTo: 2
 		},
 		isAvailable: {
 			type: 'boolean',

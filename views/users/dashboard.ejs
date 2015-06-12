@@ -1,2 +1,17 @@
 <h1>Welcome</h1>: <%= req.user.email%>
+
+
 <a href="/boards/new">New Board</a>
+
+ <ul id="boards_list">
+    <% _.each(boards, function (board) { %>
+    <li>
+    	<h3><%= board.name %></h3>	
+    	<form action='boards/<%=board.id%>' method='post'>
+    		<input type='submit' value='Join'/>
+    	</form>
+
+    </li>
+
+    <% }) %>
+  </ul>
