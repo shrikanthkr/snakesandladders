@@ -30,6 +30,6 @@
   autoCreatedAt: true,
   autoUpdatedAt: true,
   connection: 'postgresqlServer',
-  migrate: 'drop'
+  migrate: 'alter'
 
 };

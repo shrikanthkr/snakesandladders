@@ -67,3 +67,19 @@
     <a class="close-reveal-modal" aria-label="Close">&#215;</a>
   </div>
 </div>
+<script >
+  <% if(board.owner.id === req.user.id) { %>
+    var triggerRoom = function(){
+      io.socket.post('/joinGameRoom',{id: <%-board.id%> },function serverResponded (body, JWR) {
+      console.log('Sails responded with: ', body);
+      if(body.error){
+        $('#error-modal').find('#message').html(body.error);
+        $('#error-modal').foundation('reveal', 'open');
+      }else{
+        $('#joinedModal').foundation('reveal', 'open');
+      }
+    });
+    };
+    triggerRoom();
+    <%}%>
+</script>

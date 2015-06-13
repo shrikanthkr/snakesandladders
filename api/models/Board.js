@@ -41,10 +41,7 @@ module.exports = {
 					cb(err);
 				}else{
 					console.log(board);
-					if(board.max <= board.current +1 ){
-						console.log('Max reached');;
-						cb({message: 'Max players Reached'},null);
-					}else{
+					if(board.current +1 <=board.max  ){
 						Board.update({id: board.id},{max: (board.max+1) }).exec(function afterwards(err, updated){
 							if (err) {
 								cb(err);
@@ -52,7 +49,9 @@ module.exports = {
 							board.players.add(user);
 							board.save(cb);
 						});
-
+					}else{
+							console.log('Max reached');;
+						cb({message: 'Max players Reached'},null);
 					}
 				}
 

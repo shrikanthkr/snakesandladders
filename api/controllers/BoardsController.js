@@ -15,7 +15,7 @@
  	create: function(req,res) {
  			var boardParams = {
  				name: req.param('name'),
- 				max: req.param('max'),
+ 				max: req.param('max') || 2,
  				owner: req.user.id
  			};
  		Board.create(boardParams,function(err,board){
@@ -55,41 +55,19 @@
  			if(err){
  				socket.emit('joinGame',{error: 'You have already joined'});
  			}else{
+ 				console.log('Joining Room:'+board.id )
  				socket.join(board.id);
- 				io.sockets.in(board.id).emit('joinGame',{board: board, player: req.user});
+ 				io.to(board.id).emit('joinGame',{board: board});
  			}
  			
  		});
- 		/*Board.findOne({id: req.params['id']})
- 		.exec(function(err,board) {
- 			console.log(board);
- 			Board.update( { id: board.id},
- 			{
- 				joinee: socket.id,
- 				isAvailable: false
- 			}).exec(function(err,updatedBoards) {
- 				console.log('printing borad');
- 				console.log(updatedBoards);
- 				if(updatedBoards.length  > 0){
- 					console.log('joining :'+updatedBoards[0].id);
- 					socket.client.board = updatedBoards[0];
- 					socket.join(updatedBoards[0].id);
- 					socket.broadcast.to(updatedBoards[0].id).emit('joinGame',{message: 'Joined', board: updatedBoards});
- 					return res.json({message: 'Joined', board: updatedBoards});
- 				}else{
- 					Board.create({
- 						creator: socket.id,
- 						joinee: null
- 					}).exec(function(err,board){
- 						console.log('created :'+board.id);
- 						socket.client.board = board;
- 						socket.join(board.id);
- 						socket.emit('created',{message: board});
- 					});
- 				}
-
- 			});
- 		});*/
+ 		
+ 	},
+ 	joinGameRoom: function(req,res) {
+ 		console.log('Firstttime user join rolled');
+ 		var socket = req.socket,
+ 		io = sails.io;
+ 		socket.join(req.param('id'));
  	},
 
  	diceRolled: function(req,res) {
