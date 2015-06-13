@@ -143,8 +143,13 @@ var game = (function (){
 		$('body').off('click','#dice').on('click','#dice',rollDice);
 		$('body').off('click','#join').on('click','#join',joinGame);
 	}
+	var updatePlayersList = function(board) {
+		App.render('players_template','players_target',board);
+	}
 	return {
-		init: init
+		init: init,
+		updatePlayersList: updatePlayersList
+
 		//updateView: updateView
 	}
 });

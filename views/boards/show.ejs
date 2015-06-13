@@ -12,10 +12,10 @@
 
     <br>
 
-  <ul id="boards_list" class="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
+  <ul id="players_target" class="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
     <% _.each(board.players, function (player) { %>
     <li>
-      <h3><%= player.name %></h3>  
+      <h3 class='white'><%= player.name %></h3>  
     </li>
 
     <% }) %>
@@ -82,4 +82,11 @@
     };
     triggerRoom();
     <%}%>
+</script>
+<script id="players_template" type="text/x-handlebars-template">
+  {{#each board.players}}
+  <li>
+      <h3 class='white'>{{name}}</h3>  
+    </li>
+  {{/each}}
 </script>

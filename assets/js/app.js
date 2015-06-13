@@ -9,5 +9,12 @@ App = {
 			module().init();
 		});
 		this.core[selector] = module;
+	},
+	render: function(template,target,data) {
+		var $template = $('#'+template),
+		$target = $('#'+target),
+		compiler = Handlebars.compile($template.html()),
+		renderString = compiler(data);
+		$target.html(renderString);
 	}
 };

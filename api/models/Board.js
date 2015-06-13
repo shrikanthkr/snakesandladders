@@ -42,13 +42,9 @@ module.exports = {
 				}else{
 					console.log(board);
 					if(board.current +1 <=board.max  ){
-						Board.update({id: board.id},{max: (board.max+1) }).exec(function afterwards(err, updated){
-							if (err) {
-								cb(err);
-							}
+							board.current  = board.current + 1;
 							board.players.add(user);
 							board.save(cb);
-						});
 					}else{
 							console.log('Max reached');;
 						cb({message: 'Max players Reached'},null);

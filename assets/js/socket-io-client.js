@@ -19,9 +19,9 @@
   socket.on('connect', function socketConnected() {
 
     // Listen for Comet messages from Sails
-    socket.on('joinGame', function messageReceived(message) {
-      log('Opponenet Joined ', message);
-        window.isMyturn = true;
+    socket.on('joinGame', function messageReceived(data) {
+      log('Opponenet Joined ', data);
+       App.core['board-page']().updatePlayersList(data);
         $('#player-waiting-modal').foundation('reveal', 'close');
         $('#player-joined-modal').foundation('reveal', 'open');
     });
