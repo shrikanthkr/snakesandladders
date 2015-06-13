@@ -51,5 +51,8 @@ module.exports.policies = {
 
   'UsersController': {
     dashboard: 'isAuthenticated'
+  },
+  'BoardsController': {
+    '*': 'isAuthenticated'
   }
 };

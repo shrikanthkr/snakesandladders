@@ -23,7 +23,9 @@ body{
      opacity: 0;
  }
 }
-
+.disabled{
+pointer-events: none;
+}
 .center{
     text-align: center;
 }
@@ -54,7 +56,7 @@ body{
     color: #ffffff;
     font-size: 5em;
     margin-bottom: 20px;
-    margin-top: 2em;
+    margin-top: 1em;
     text-align: center;
 }
 .display-none{

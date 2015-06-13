@@ -1,18 +1,15 @@
-<div class='header'>Want to Play? </div>
-
-<div class=" large-5 medium-8 small-10  large-centered small-centered medium-centered columns ">
-	<form method="POST" action="/login" class='center black-container form radius'>
-		<%- req.flash('message') %>
-		<input placeholder="Email" class='element input white transparent  ' type="email" name="email" value=""/>
-		<input placeholder="Password" class='input white transparent ' type="password" name="password" value=""/>
-		<input class='button expand element input white transparent ' type="submit" value="Sign In ">
-
-
-		<div class='element'>(or)</div>
-		<a href='users/new' class='button center expand input white transparent  ' type="submit" value="">Sign Up</a>
-	</form>
+<div class="row">
+	<div class='header'>Want to Play? </div>
+	<div class=" large-5 medium-8 small-10  large-centered small-centered medium-centered columns ">
+		<form method="POST" action="/login" class='center black-container form radius'>
+			<%- req.flash('message') %>
+			<input placeholder="Email" class='element input white transparent  ' type="email" name="email" value="s@y.com"/>
+			<input placeholder="Password" class='input white transparent ' type="password" name="password" value="admin123"/>
+			<input class='button expand element input white transparent ' type="submit" value="Sign In ">
 
 
+			<div class='element'>(or)</div>
+			<a href='users/new' class='button center expand input white transparent  ' type="submit" value="">Sign Up</a>
+		</form>
+	</div>
 </div>
-
-

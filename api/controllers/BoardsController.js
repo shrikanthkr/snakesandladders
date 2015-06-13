@@ -12,9 +12,6 @@
  	new: function(req,res) {
  		return res.view('boards/new');
  	},
- 	join: function(req,res) {
- 		return res.view('boards/join');
- 	}, 	
  	create: function(req,res) {
 
  		User.findOne({id: req.user.id},function(err,user){
@@ -22,6 +19,7 @@
  				name: req.param('name'),
  				max: req.param('max')
  			};
+ 			user.my_boards.add(boardParams);
  			user.boards.add(boardParams);
  			user.save(function(err,board) {
  				console.log(err);
@@ -46,12 +44,21 @@
  			})
  		});
  	},
+ 	/*Socket request*/
  	joinGame: function(req,res) {
  		var socket = req.socket;
  		var io = sails.io;
- 		Board.find({ where: {isAvailable :true}, limit: 1})
- 		.exec(function(err,boards) {
- 			var board = boards.length>0 ? boards[0] : {};
+ 		Board.join(	User.findOne({id: req.session.passport.user}),req.param('id'),function(err,board) {
+ 			if(err){
+ 				socket.emit('joinGame',{error: err});
+ 			}else{
+ 				socket.join(board.id);
+ 				io.sockets.in(board.id).emit('joinGame',{board: board, player: req.user});
+ 			}
+ 			
+ 		});
+ 		/*Board.findOne({id: req.params['id']})
+ 		.exec(function(err,board) {
  			console.log(board);
  			Board.update( { id: board.id},
  			{
@@ -79,7 +86,7 @@
  				}
 
  			});
- 		});
+ 		});*/
  	},
 
  	diceRolled: function(req,res) {

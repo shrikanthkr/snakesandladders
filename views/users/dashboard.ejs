@@ -3,15 +3,13 @@
 
 <a href="/boards/new">New Board</a>
 
- <ul id="boards_list">
-    <% _.each(boards, function (board) { %>
-    <li>
-    	<h3><%= board.name %></h3>	
-    	<form action='boards/<%=board.id%>' method='post'>
-    		<input type='submit' value='Join'/>
-    	</form>
+<ul id="boards_list" class="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
+	<% _.each(boards, function (board) { %>
+	<li>
+		<h3><%= board.name %></h3>	
+		<a href='boards/<%=board.id%>'>Show</a>
 
-    </li>
+	</li>
 
-    <% }) %>
-  </ul>
+	<% }) %>
+</ul>
