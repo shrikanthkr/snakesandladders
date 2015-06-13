@@ -13,15 +13,15 @@
  		return res.view('boards/new');
  	},
  	create: function(req,res) {
-
- 		User.findOne({id: req.user.id},function(err,user){
  			var boardParams = {
  				name: req.param('name'),
- 				max: req.param('max')
+ 				max: req.param('max'),
+ 				owner: req.user.id
  			};
- 			user.my_boards.add(boardParams);
- 			user.boards.add(boardParams);
- 			user.save(function(err,board) {
+ 		Board.create(boardParams,function(err,board){
+ 		
+ 			board.players.add(req.user.id);
+ 			board.save(function(err,board) {
  				console.log(err);
  				if(err){
  					req.flash('message',err.message || err.info);
@@ -37,7 +37,10 @@
  	},
  	show: function(req,res) {
  		console.log('showing board: '+req.params['id']);
- 		Board.findOne({id: req.params['id']}).exec(function(err,board) {
+ 		Board.findOne({id: req.params['id']})
+ 		.populate('players')
+ 		.populate('owner')
+ 		.exec(function(err,board) {
  			console.log(board);
  			res.view({
  				board: board
@@ -50,7 +53,7 @@
  		var io = sails.io;
  		Board.join(	User.findOne({id: req.session.passport.user}),req.param('id'),function(err,board) {
  			if(err){
- 				socket.emit('joinGame',{error: err});
+ 				socket.emit('joinGame',{error: 'You have already joined'});
  			}else{
  				socket.join(board.id);
  				io.sockets.in(board.id).emit('joinGame',{board: board, player: req.user});

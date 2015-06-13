@@ -9,6 +9,7 @@
  	userParams: function(req,res){
  		return {
  			 email :req.param('email'),
+ 			 name: req.param('name'),
  			 password :req.param('password'),
  			 passwordConfirmation :req.param('passwordConfirmation')
  		}

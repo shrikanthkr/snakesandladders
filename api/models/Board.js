@@ -45,13 +45,12 @@ module.exports = {
 						console.log('Max reached');;
 						cb({message: 'Max players Reached'},null);
 					}else{
-						Board.update({id: board.id},{max:board.max+1}).exec(function afterwards(err, updated){
+						Board.update({id: board.id},{max: (board.max+1) }).exec(function afterwards(err, updated){
 							if (err) {
 								cb(err);
 							}
 							board.players.add(user);
 							board.save(cb);
-							console.log('Updated user to have name ' + updated[0].name);
 						});
 
 					}

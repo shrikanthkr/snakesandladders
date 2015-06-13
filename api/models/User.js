@@ -7,6 +7,9 @@
 var bcrypt = require('bcrypt');
 module.exports = {
 	attributes: {
+		name:{
+			type: 'string'
+		},
 		email: {
 			type: 'email',
 			required: true,
@@ -15,9 +18,6 @@ module.exports = {
 		password: {
 			type: 'string',
 			required: true
-		},
-		passwordConfirmation: {
-			type: 'string'
 		},
 		toJSON: function() {
 			var obj = this.toObject();

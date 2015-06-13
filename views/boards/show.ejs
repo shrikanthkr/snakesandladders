@@ -1,4 +1,4 @@
-<div class="" id="board-page"  data-role='page' data-id='<%- board.id %>'>
+<div class="white" id="board-page"  data-role='page' data-id='<%- board.id %>'>
   <div class="container">
     <img src="/images/snakesladders.jpg" id='ladder-image'  class='ladder-image' alt=""/>
     <div id='tables-container' class="ladder-image"></div>
@@ -9,6 +9,19 @@
      <div id='join' class='button input white transparent'>Join</div>
     <div id='dice' class='disabled button input white transparent'>Roll Dice: <span id='number'>0</span></div>
     <br>
+
+    <br>
+
+  <ul id="boards_list" class="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
+    <% _.each(board.players, function (player) { %>
+    <li>
+      <h3><%= player.name %></h3>  
+    </li>
+
+    <% }) %>
+  </ul>
+
+
     <span id='player-one-name'>You : </span>
     <div id='player-one-position' class='places'></div> 
     <div id='player-one' class='player one icons small transition'> 

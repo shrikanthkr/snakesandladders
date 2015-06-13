@@ -2,6 +2,7 @@
 <div class=" large-5 medium-8 small-10  large-centered small-centered medium-centered columns ">
 	<form method="POST" action="/users" class='center black-container form radius'>
 		<%- req.flash('message') %>
+		<input placeholder="Name" class='element input white transparent  ' type="text" name="name" value=""/>
 		<input placeholder="Email" class='element input white transparent  ' type="email" name="email" value=""/>
 		<input placeholder="Password" class='input white transparent ' type="password" name="password" value=""/>
 		<input placeholder="Password Confirmation" class='input white transparent ' type="password" name="passwordConfirmation" value=""/>
