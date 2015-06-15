@@ -37,7 +37,9 @@ module.exports = {
 		},
 		toJSON: function() {
 			var obj = this.toObject();
-			obj.formattedDate = obj.formattedDate().toString();
+			if(typeof obj.gravatarImage == 'function'){
+				obj.formattedDate = obj.formattedDate();
+			}
 			return obj;
 		}
 
