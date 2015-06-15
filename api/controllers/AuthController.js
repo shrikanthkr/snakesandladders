@@ -13,7 +13,14 @@ module.exports = {
     },
 
     login: function(req, res) {
-
+         Redis.set({
+            key: 'key',
+            value: 'updated'
+         },function(err,data) {
+            console.log('*************');
+            console.log(data);
+            console.log('*************');
+         });
         passport.authenticate('local', function(err, user, info) {
             if ((err) || (!user)) {
             	req.flash('message', info.message.toString());

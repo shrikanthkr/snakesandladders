@@ -19,7 +19,7 @@
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.connections.html
  */
 
-module.exports.connections = {
+ module.exports.connections = {
 
   /***************************************************************************
   *                                                                          *
@@ -93,7 +93,26 @@ module.exports.connections = {
     database:  process.env.POSTGRES_SNAKES_DATABASE,
     port: process.env.POSTGRES_SNAKES_PORT,
     poolSize: 2
+  },
+
+  redis: {
+    adapter: 'redis',
+   port: 6379,
+   host: 'localhost',
+   password: null,
+   database: null,
+   options: {
+
+    // low-level configuration
+    // (redis driver options)
+    parser: 'hiredis',
+    return_buffers: false,
+    detect_buffers: false,
+    socket_nodelay: true,
+    no_ready_check: false,
+    enable_offline_queue: true
   }
+}
 
   /***************************************************************************
   *                                                                          *
