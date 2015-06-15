@@ -192,72 +192,22 @@ var Connection = require('./connection');
       client.set(options.key,options.value,cb);
     },
     hset: function (connection, collection, options, cb) {
-      return cb();
+      var client = connections[connection].connection;
+      client.set('key2', options.value,cb);
     },
-    hkeys: function (connection, collection, options, cb) {
-      return cb();
+    hmset: function (connection, collection, options, cb) {
+      var client = connections[connection].connection;
+      client.HMSET('key2', options.value,cb);
+    },
+    hgetall: function (connection, collection, options, cb) {
+      var client = connections[connection].connection;
+      client.hgetall('key2',cb);
     },
     get: function (connection, collection, options, cb) {
       var client = connections[connection].connection;
       client.get(options.key, cb);
     },
-    /*
-
-    // Custom methods defined here will be available on all models
-    // which are hooked up to this adapter:
-    //
-    // e.g.:
-    //
-    foo: function (connection, collection, options, cb) {
-      return cb(null,"ok");
-    },
-    bar: function (connection, collection, options, cb) {
-      if (!options.jello) return cb("Failure!");
-      else return cb();
-      destroy: function (connection, collection, options, values, cb) {
-       return cb();
-     }
-
-    // So if you have three models:
-    // Tiger, Sparrow, and User
-    // 2 of which (Tiger and Sparrow) implement this custom adapter,
-    // then you'll be able to access:
-    //
-    // Tiger.foo(...)
-    // Tiger.bar(...)
-    // Sparrow.foo(...)
-    // Sparrow.bar(...)
-
-
-    // Example success usage:
-    //
-    // (notice how the first argument goes away:)
-    Tiger.foo({}, function (err, result) {
-      if (err) return console.error(err);
-      else console.log(result);
-
-      // outputs: ok
-    });
-
-    // Example error usage:
-    //
-    // (notice how the first argument goes away:)
-    Sparrow.bar({test: 'yes'}, function (err, result){
-      if (err) console.error(err);
-      else console.log(result);
-
-      // outputs: Failure!
-    })
-
-
-
-
-*/
-
-
-
-
-};
+  };
 
 
   // Expose adapter definition

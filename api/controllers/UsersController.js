@@ -10,12 +10,6 @@
  		return res.view('users/new');
  	},
  	dashboard: function(req,res) {
- 		Redis.get({key: 'key'},function(err,model) {
- 			console.log('*************');
- 			console.log(err);
- 			console.log(model);
- 			console.log('*************');
- 		});
  		Board.find({ where: {isAvailable :true},sort: 'createdAt DESC' } )
  		.exec(function(err,boards) {
  			res.view('users/dashboard',{
