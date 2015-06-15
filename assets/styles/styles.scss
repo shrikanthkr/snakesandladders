@@ -5,7 +5,6 @@ body{
   padding: 0 !important;
   margin: 0 !important;
   font-size: 13px;
-  overflow: hidden;
 }
 .row{
   max-width: 75.5rem;
@@ -97,15 +96,16 @@ body{
   position: fixed;
   bottom:0;
   transform: translateY(100%);
+  overflow: auto;
   max-height: 50%;
   .profile-img{
-      width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-  overflow: auto;
-  border: 10px solid rgba(255,255,255,0.2);
-  margin-top: 20px;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    
+    border: 10px solid rgba(255,255,255,0.2);
+    margin-top: 20px;
   }
 }
 
@@ -132,11 +132,11 @@ form{
 }
 .button-th{
   color: #fff;
-   background-color: #68dff0;
+  background-color: #68dff0;
   border-color: #48bcb4;
 }
 .button-th:hover{
-    background-color: #48bcb4;
+  background-color: #48bcb4;
   border-color: #48bcb4;
 }
 .white-panel{
@@ -181,17 +181,17 @@ form{
     padding: 20px;
   }
   h2.form-heading {
-  margin: 0;
-  padding: 25px 20px;
-  text-align: center;
-  background: #68dff0;
-  border-radius: 5px 5px 0 0;
-  -webkit-border-radius: 5px 5px 0 0;
-  color: #fff;
-  font-size: 20px;
-  text-transform: uppercase;
-  font-weight: 300;
-}
+    margin: 0;
+    padding: 25px 20px;
+    text-align: center;
+    background: #68dff0;
+    border-radius: 5px 5px 0 0;
+    -webkit-border-radius: 5px 5px 0 0;
+    color: #fff;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 300;
+  }
   .panel-inputs{
     display: block;
     width: 100%;

@@ -153,14 +153,23 @@ var game = (function (){
 		$('body').off('click','#join').on('click','#join',joinGame);
 		$('body').off('click','#show-button').on('click','#show-button',showPlayerPanel);
 	}
-	var updatePlayersList = function(board) {
+	var updatePlayersList = function(data) {
+		var board = data.board;
 		App.render('players_template','players_target',board);
-		$('#players_target').find('[data-user-id="'+board.board.newJoinee+'"]');
+		var $scoreBoard = $('#score-board');
+		updatePlayersTurn(board);
 		
+	}
+	var updatePlayersTurn = function(board) {
+		var $scoreBoard = $('#score-board'),
+		$userProfile = $scoreBoard.find('[data-user-id="'+board.newJoinee+'"]');
+		$scoreBoard.find('.profile-img').removeClass('active');
+		$userProfile.find('.profile-img').addClass('active');
 	}
 	return {
 		init: init,
-		updatePlayersList: updatePlayersList
+		updatePlayersList: updatePlayersList,
+		updatePlayersTurn:  updatePlayersTurn
 
 		//updateView: updateView
 	}

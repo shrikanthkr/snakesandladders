@@ -20,11 +20,6 @@ module.exports = {
 			type: 'string',
 			required: true
 		},
-		toJSON: function() {
-			var obj = this.toObject();
-			delete obj.password;
-			return obj;
-		},
 		boards: {
 			collection: 'board',
 			via :'players'
@@ -33,8 +28,16 @@ module.exports = {
 			collection: "board",
       via: "owner"
 		},
-		gravatar_image: function() {
-			return gravatar.url(this.email);
+		gravatarImage: function() {
+			return gravatar.url(this.email).toString();
+		},
+		toJSON: function() {
+			var obj = this.toObject();
+			if(typeof obj.gravatarImage == 'function'){
+				obj.gravatarImage = obj.gravatarImage();
+			}
+			delete obj.password;
+			return obj;
 		}
 	},
 	validateAndCreate: function(user,cb) {

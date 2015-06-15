@@ -34,7 +34,13 @@ module.exports = {
 		},
 		formattedDate: function() {
 			return moment(this.createdAt).fromNow();
+		},
+		toJSON: function() {
+			var obj = this.toObject();
+			obj.formattedDate = obj.formattedDate().toString();
+			return obj;
 		}
+
 	},
 	join : function(User,board_id,cb) {
 		User.exec(function(err,user){

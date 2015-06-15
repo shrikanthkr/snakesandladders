@@ -16,8 +16,8 @@
         <div class="large-7 medium-8 small-10 large-uncentered medium-uncentered small-centered columns">
           <ul id="players_target" class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">
             <% _.each(board.players, function (player) { %>
-            <li class='center'>
-              <img src="<%= req.user.gravatar_image()%>" class="profile-img" width="50">
+            <li class='center' data-user-id='<%= req.user.id%>'>
+              <img src="<%= req.user.gravatarImage()%>" class="profile-img" width="50">
               <h3 class='white center'><%= player.name %></h3>  
             </li>
 
@@ -53,9 +53,10 @@
     <%}%>
   </script>
   <script id="players_template" type="text/x-handlebars-template">
-    {{#each board.players}}
-    <li data-user-id='{{id}}'>
-      <h3 class='white'>{{name}}</h3>  
-    </li>
+    {{#each players}}
+      <li class='center' data-user-id='<%= req.user.id%>'>
+              <img src="{{gravatarImage}}" class="profile-img" width="50">
+              <h3 class='white center'>{{name}}</h3>  
+            </li>
     {{/each}}
   </script>
