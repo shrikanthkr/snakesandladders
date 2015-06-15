@@ -1,33 +1,6 @@
 var game = (function (){
 	var $number,
-	isMyturn = false,
-	$playerOne,
-	$playerTwo ,
-	$playerOnePosition ,
-	$playerTwoPosition ,
-	playerOnePosition = 0,
-	playerTwoPosition = 0,
 	$rows,boardId,userId ;
-
-
-	var decidePosition = function(position,$player){
-		var positionChange = ladders[position] || snakes[position] || position;
-		placeIcon($rows.find('[data-nodeId="'+position+'"]'),$player);
-		setTimeout(function(){
-			placeIcon($rows.find('[data-nodeId="'+positionChange+'"]'),$player);
-		},1000);
-		return positionChange;
-	}
-	var placeIcon  = function(node,$player){
-		if(node.length <=0) return;
-		var $node = $(node),
-		adjustX = $node.width()/2,
-		adjustY = $node.height()/2,
-		positionX = $node.offset().left + adjustX, 
-		positionY = $node.offset().top + adjustY;
-		$player.css({top: positionY, left: positionX});
-
-	}
 	var drawTable = function() {
 		var $ladderImage  =$('#ladder-image'),
 		cellWidth = $ladderImage.width()/10,
@@ -68,29 +41,11 @@ var game = (function (){
 		myTableDiv && myTableDiv.appendChild(table);
 		$(myTableDiv).width($ladderImage.width());
 		$number = $('#number'),
-		$playerOne = $('#player-one'),
-		$playerTwo = $('#player-two'),
-		$playerOnePosition = $('#player-one-position'),
-		$playerTwoPosition = $('#player-two-position'),
 		$rows = $('#tables-container').find('tr');	
+		$(document).trigger('triggerRoom');
 	}
 	var rollDice = function (argument) {
-			var number = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
-			$number.text(number);
-			if(playerOnePosition+number > 100){
-
-			}else if(playerOnePosition+number === 100 ){
-				playerOnePosition+=number;
-				io.socket.get('/gameOver', {number :number});
-				$('#gameOver-modal').find('#message').html('You Win!');
-			}else{
-				playerOnePosition+=number;
-			}
-
-			playerOnePosition = decidePosition(playerOnePosition,$playerOne);
-			$playerOnePosition.html(playerOnePosition);
-			io.socket.post('/diceRolled');
-
+		io.socket.post('/diceRolled',{id: $('#board-page').data('id')});
 	}
 	var joinGame = function() {
 		io.socket.post('/joinGame',{id: boardId },function serverResponded (body, JWR) {
@@ -130,29 +85,50 @@ var game = (function (){
 	var updatePlayersList = function(data) {
 		var board = data.board;
 		App.render('players_template','players_target',board);
+		App.render('players_icons_template','players_icons_target',board);
 		var $scoreBoard = $('#score-board'),
-		$players = $('#score-board').find('[data-user-id]');
+		$players = $('#score-board').find('[data-user-id]'),
+		$playerPositions = $('#players_icons_target').find('[data-user-id]');
 		for (var  key in board.metaData) {
 			var player = board.metaData[key],
-			$player = $players.filter('[data-user-id="'+key+'"]');
+			$player = $players.filter('[data-user-id="'+key+'"]'),
+			$playerPosition = $playerPositions.filter('[data-user-id="'+key+'"]');
 			$player.find('.profile-img').css('border-color',player.colour);
-			$player.find('icon').css('background',player.colour);
+			$playerPosition.css('background',player.colour);
+			placeIcon(player.position,$playerPosition);
 		};
 		updatePlayersTurn(board);
 		
 	}
-	var updatePlayersTurn = function(board) {
+	var updatePlayersTurn = function(data) {
 		var $scoreBoard = $('#score-board'),
-		turnUser = board.metaData.turn,
+		metaData = data.metaData,
+		turnUser = metaData.turn,
+		$playerPositions = $('#players_icons_target').find('[data-user-id]');
 		userId  = $('#board-page').data('currid');
 		$currentUser = $scoreBoard.find('[data-user-id="'+turnUser+'"]');
 		$scoreBoard.find('.profile-img').removeClass('active');
 		$currentUser.css('	background-color', 'rgba(255,255,255,0.5');
-			if(userId === turnUser){
+			if(userId == turnUser){
 				enableDiceButton();
 			}else{
 				disableDiceButton();
 			}
+			for (var  key in data.metaData) {
+				var player = data.metaData[key],
+				$playerPosition = $playerPositions.filter('[data-user-id="'+key+'"]');
+				placeIcon(player.position,$playerPosition);
+			};
+		}
+		var placeIcon  = function(position,$player){
+			if(!position) return;
+			var $node = $('#tables-container').find('[data-nodeid="'+position+'"]'),
+			adjustX = $node.width()/2,
+			adjustY = $node.height()/2,
+			positionX = $node.offset().left + adjustX, 
+			positionY = $node.offset().top + adjustY;
+			$player.css({top: positionY, left: positionX});
+
 		}
 		var enableDiceButton = function() {
 			$('#dice').removeClass('disabled');

@@ -27,12 +27,13 @@
  		});
  	},
  	diceCalculations: function(board_id,user_id,position,cb) {
- 		var positionChange = BoardServices.ladders[position] || BoardServices.snakes[position] || position;
  		Redis.get({
  			key:board_id
  		},function(err,reply) {
  			var meta = JSON.parse(reply) || {};
  			meta = meta ? meta : {};
+ 			var addedPosition = meta[user_id].position + position,
+ 			positionChange = BoardServices.ladders[addedPosition] || BoardServices.snakes[addedPosition] || addedPosition;
  			meta[user_id].position = positionChange;
  			meta.turn = BoardServices.turnCalculations(meta,user_id);
  			console.log(meta);
@@ -62,7 +63,7 @@
  			console.log(player);
  			console.log('***********************');
  			if(player.id == user_id){
- 				return players[i+1].id;
+ 				return players[i+1].id || players[0].id ;
  			}
 
  		}

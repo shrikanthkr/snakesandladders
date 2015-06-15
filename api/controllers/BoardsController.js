@@ -83,7 +83,9 @@
  		Board.findOne({id: req.param('id')}).populate('players').exec(function(err,board){
  			BoardServices.metaData(board.toJSON(),function(err,reply,data) {
  				if(err){
- 					socket.emit(board.id).emit('joinGame',{error:err});
+ 					res.json({
+ 							error: err
+ 						});
  				}else{
  					Redis.get({
  						key: board.id
@@ -92,7 +94,7 @@
  						res.json({
  							board: board
  						});
- 					})
+ 					});
  				}
  			});
  			
@@ -108,7 +110,13 @@
  		console.log('dice rolled');
  		console.log('publishing:');
  		BoardServices.diceCalculations( board_id,user_id,number,function(err,reply) {
- 			io.to(board_id).emit('message',{board: reply});
+ 			Redis.get({
+ 						key: board_id
+ 					},function(err,data) {
+ 						var metaData =  JSON.parse(data);
+ 						io.to(board_id).emit('message',{metaData: metaData});
+ 					});
+ 			
  		});
  		
  	},

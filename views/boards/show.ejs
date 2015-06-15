@@ -3,7 +3,9 @@
       <img src="/images/snakesladders.jpg" id='ladder-image'  class='ladder-image' alt=""/>
       <div id='tables-container' class="ladder-image"></div>
     </div>
-
+    <div id="players_icons_target">
+      
+    </div>
     <div  id='score-board' class='black-container score-board transition'> 
       <div class="row">
         <div class="large-4 medium-3 small-10 large-uncentered medium-uncentered small-centered columns">
@@ -37,7 +39,6 @@
 
   </div>
 <script >
-  <% if(board.owner.id === req.user.id) { %>
     var triggerRoom = function(){
       io.socket.post('/joinGameRoom',{id: <%-board.id%> },function serverResponded (data, JWR) {
         console.log('Sails responded with: ', data);
@@ -45,15 +46,19 @@
         App.core['board-page']().updatePlayersList(data);
       });
     };
-    triggerRoom();
-    <%}%>
+    $(document).on('triggerRoom',triggerRoom);
   </script>
   <script id="players_template" type="text/x-handlebars-template">
     {{#each players}}
       <li class='center' data-user-id='{{id}}'>
               <img src="{{gravatarImage}}" class="profile-img" width="50">
               <h3 class='white center'>{{name}}</h3>  
-              <div class="circle tiny icon"></div>
             </li>
+    {{/each}}
+  </script>
+
+   <script id="players_icons_template" type="text/x-handlebars-template">
+    {{#each players}}
+              <div class="circle tiny icon fixed transition" data-user-id='{{id}}'></div>
     {{/each}}
   </script>

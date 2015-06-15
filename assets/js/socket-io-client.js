@@ -32,7 +32,7 @@
     });
     socket.on('message', function messageReceived(message) {
       log('New comet message received :: ', message);
-      window.onPlay(message);
+      App.core['board-page']().updatePlayersTurn(message);
     });
     socket.on('created', function messageReceived(message) {
       log('Game created ', message);
