@@ -21,28 +21,26 @@
     // Listen for Comet messages from Sails
     socket.on('joinGame', function messageReceived(data) {
       log('Opponenet Joined ', data);
-       App.core['board-page']().updatePlayersList(data);
-        $('#player-waiting-modal').foundation('reveal', 'close');
-        $('#player-joined-modal').foundation('reveal', 'open');
+      App.core['board-page']().updatePlayersList(data);
     });
     socket.on('gameOver', function messageReceived(data) {
       log('Opponenet Joined ', message);
-        window.isMyturn = true;
-       $('#gameOver-modal').find('#message').html('You Lose!');
-       $('#gameOver-modal').foundation('reveal', 'open');
+      window.isMyturn = true;
+      $('#gameOver-modal').find('#message').html('You Lose!');
+      $('#gameOver-modal').foundation('reveal', 'open');
     });
     socket.on('message', function messageReceived(message) {
       log('New comet message received :: ', message);
       window.onPlay(message);
     });
-     socket.on('created', function messageReceived(message) {
+    socket.on('created', function messageReceived(message) {
       log('Game created ', message);
-        window.isMyturn = false;
-         $('#player-waiting-modal').foundation('reveal', 'open');
+      window.isMyturn = false;
+      $('#player-waiting-modal').foundation('reveal', 'open');
     });
-      socket.on('disconnected', function messageReceived(message) {
+    socket.on('disconnected', function messageReceived(message) {
       log('Game created ', message);
-         $('#player-disconnected-modal').foundation('reveal', 'open');
+      $('#player-disconnected-modal').foundation('reveal', 'open');
     });
   });
 

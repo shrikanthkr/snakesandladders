@@ -85,7 +85,7 @@
 </script>
 <script id="players_template" type="text/x-handlebars-template">
   {{#each board.players}}
-  <li>
+    <li data-user-id='{{id}}'>
       <h3 class='white'>{{name}}</h3>  
     </li>
   {{/each}}

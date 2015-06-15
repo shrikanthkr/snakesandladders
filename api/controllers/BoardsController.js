@@ -50,8 +50,9 @@
  	/*Socket request*/
  	joinGame: function(req,res) {
  		var socket = req.socket;
- 		var io = sails.io;
- 		Board.join(	User.findOne({id: req.session.passport.user}),req.param('id'),function(err,board) {
+ 		var io = sails.io,
+ 		user_id = req.session.passport.user;
+ 		Board.join(	User.findOne({id: user_id}),req.param('id'),function(err,board) {
  			if(err){
  				console.log(err)
  				socket.emit('joinGame',{error: 'You have already joined'});
@@ -66,6 +67,7 @@
  							key: board.id
  						},function(err,data) {
  							board.metaData = JSON.parse(data);
+ 							board.newJoinee = user_id;
  							io.to(board.id).emit('joinGame',{board: board});
  						})
  					}
