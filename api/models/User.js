@@ -4,7 +4,8 @@
 * @description :: TODO: You might write a short summary of how this model works and what it represents here.
 * @docs        :: http://sailsjs.org/#!documentation/models
 */
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt'),
+gravatar = require('gravatar');
 module.exports = {
 	attributes: {
 		name:{
@@ -31,6 +32,9 @@ module.exports = {
 		my_boards: {
 			collection: "board",
       via: "owner"
+		},
+		gravatar_image: function() {
+			return gravatar.url(this.email);
 		}
 	},
 	validateAndCreate: function(user,cb) {

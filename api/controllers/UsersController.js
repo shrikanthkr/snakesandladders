@@ -11,6 +11,7 @@
  	},
  	dashboard: function(req,res) {
  		Board.find({ where: {isAvailable :true},sort: 'createdAt DESC' } )
+ 		.populate('owner')
  		.exec(function(err,boards) {
  			res.view('users/dashboard',{
  				boards: boards

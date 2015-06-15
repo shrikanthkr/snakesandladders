@@ -1,15 +1,51 @@
 <h1>Welcome</h1>: <%= req.user.email%>
 
+<div class="row">
+<ul id="boards_list" class="small-block-grid-1 medium-block-grid-2 large-block-grid-3 xlarge-block-grid-4">
+		<li>
+			<a href='boards/new'>
+				<div class="white-panel new transition">
+					<div class="white-header">
+						<h5><%= req.user.name %></h5>
+					</div>
+					<p><img src="<%= req.user.gravatar_image()%>" class="img-circle" width="50"></p>
+					<p><b>Create a new Board</b></p>
+					<div class="row">
+						<div class="large-6 medium-6 small-6 columns">
+							<p class="small mt">Max Players</p>
+							<p>1..6</p>
+						</div>
+						<div class="large-6 medium-6 small-6 columns">
+							<p class="small mt">Created</p>
+							<p>Now</p>
+						</div>
+					</div>
+				</div>
+			</a>
+		</li>
+		<% _.each(boards, function (board) { %>
+		<li>
+			<a href='boards/<%=board.id%>'>
+				<div class="white-panel pn transition">
+					<div class="white-header">
+						<h5><%= board.owner.name %></h5>
+					</div>
+					<p><img src="<%= board.owner.gravatar_image()%>" class="img-circle" width="50"></p>
+					<p><b><%= board.name %></b></p>
+					<div class="row">
+						<div class="large-6 medium-6 small-6 columns">
+							<p class="small mt">Max Players</p>
+							<p><%= board.max %></p>
+						</div>
+						<div class="large-6 medium-6 small-6 columns">
+							<p class="small mt">Created</p>
+							<p><%= board.formattedDate() %></p>
+						</div>
+					</div>
+				</div>
+			</a>
+		</li>
 
-<a href="/boards/new">New Board</a>
-
-<ul id="boards_list" class="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
-	<% _.each(boards, function (board) { %>
-	<li>
-		<h3><%= board.name %></h3>	
-		<a href='boards/<%=board.id%>'>Show</a>
-
-	</li>
-
-	<% }) %>
-</ul>
+		<% }) %>
+	</ul>
+</div>

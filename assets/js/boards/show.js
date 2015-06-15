@@ -145,6 +145,8 @@ var game = (function (){
 	}
 	var updatePlayersList = function(board) {
 		App.render('players_template','players_target',board);
+		$('#players_target').find('[data-user-id="'+board.board.newJoinee+'"]');
+		
 	}
 	return {
 		init: init,

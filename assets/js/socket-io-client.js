@@ -21,7 +21,8 @@
     // Listen for Comet messages from Sails
     socket.on('joinGame', function messageReceived(data) {
       log('Opponenet Joined ', data);
-      App.core['board-page']().updatePlayersList(data);
+      if(!data.error)
+        App.core['board-page']().updatePlayersList(data);
     });
     socket.on('gameOver', function messageReceived(data) {
       log('Opponenet Joined ', message);

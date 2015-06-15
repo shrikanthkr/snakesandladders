@@ -4,7 +4,7 @@
 * @description :: TODO: You might write a short summary of how this model works and what it represents here.
 * @docs        :: http://sailsjs.org/#!documentation/models
 */
-
+var moment = require('moment');
 module.exports = {
 	tableName: "boards",
 	autoPK: true,
@@ -31,6 +31,9 @@ module.exports = {
 		},
 		owner: {
 			model: 'user'
+		},
+		formattedDate: function() {
+			return moment(this.createdAt).fromNow();
 		}
 	},
 	join : function(User,board_id,cb) {
@@ -44,7 +47,7 @@ module.exports = {
 					if(board.current +1 <=board.max  ){
 						board.current  = board.current + 1;
 						board.players.add(user);
-								board.save(cb);
+						board.save(cb);
 					}else{
 						console.log('Max reached');;
 						cb({message: 'Max players Reached'},null);
