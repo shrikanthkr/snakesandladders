@@ -95,7 +95,7 @@
     poolSize: 2
   },
 
-  redis: {
+  redis_dev: {
     adapter: 'redis',
    port: 6379,
    host: 'localhost',
@@ -112,7 +112,25 @@
     no_ready_check: false,
     enable_offline_queue: true
   }
-}
+},
+redis: {
+    adapter: 'redis',
+   port: process.env.REDISTOGO_REDIS_SNAKES_PORT,
+   host: process.env.REDISTOGO_REDIS_SNAKES_HOSTNAME,
+   password:process.env.REDISTOGO_REDIS_SNAKES_PASSWORD,
+   database: process.env.REDISTOGO_REDIS_SNAKES_DATABASE,
+   user: process.env.REDISTOGO_REDIS_SNAKES_USER,
+   options: {
+
+    // low-level configuration
+    // (redis driver options)
+    parser: 'hiredis',
+    return_buffers: false,
+    detect_buffers: false,
+    socket_nodelay: true,
+    no_ready_check: false,
+    enable_offline_queue: true
+  }
 
   /***************************************************************************
   *                                                                          *

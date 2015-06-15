@@ -24,7 +24,10 @@ var Connection = module.exports = function(config, cb) {
 
   // Create a new Connection
   this.connect(function(err, client) {
-    if(err) return cb(err);
+    if(err) {
+      console.log(err);
+      return cb(err);
+    }
     self.connection = client;
     console.log("Redis Initiated");
     cb(null, self);
