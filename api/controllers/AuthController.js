@@ -15,7 +15,12 @@ module.exports = {
     login: function(req, res) {
         passport.authenticate('local', function(err, user, info) {
             if ((err) || (!user)) {
-            	req.flash('message', info.message.toString());
+                try{
+                    req.flash('message', info.message.toString());
+                }catch(e){
+                     req.flash('message', 'Invalid Login');
+                }
+            	
             	 return res.redirect('/');
             }
             req.logIn(user, function(err) {
