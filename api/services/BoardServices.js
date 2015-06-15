@@ -16,6 +16,7 @@
  				var player = board.players[index];
  				meta[player.id] = meta[player.id] ? meta[player.id]  : {};
  				meta[player.id].colour = meta[player.id].colour || colours[player.id%6];
+ 				meta[player.id].position = meta[player.id].position || 0;
  			}
  			meta.turn = meta.turn || _.first(board.players).id;
  			Redis.set({

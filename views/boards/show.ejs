@@ -1,4 +1,4 @@
-  <div class="white" id="board-page"  data-role='page' data-id='<%- board.id %>'>
+  <div class="white" id="board-page"  data-role='page' data-id='<%- board.id %>' data-currid='<%=req.user.id%>'>
     <div class="container">
       <img src="/images/snakesladders.jpg" id='ladder-image'  class='ladder-image' alt=""/>
       <div id='tables-container' class="ladder-image"></div>
@@ -16,8 +16,8 @@
         <div class="large-7 medium-8 small-10 large-uncentered medium-uncentered small-centered columns">
           <ul id="players_target" class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">
             <% _.each(board.players, function (player) { %>
-            <li class='center' data-user-id='<%= req.user.id%>'>
-              <img src="<%= req.user.gravatarImage()%>" class="profile-img" width="50">
+            <li class='center' data-user-id='<%= player.id%>'>
+              <img src="<%= player.gravatarImage()%>" class="profile-img" width="50">
               <h3 class='white center'><%= player.name %></h3>  
             </li>
 
@@ -39,14 +39,10 @@
 <script >
   <% if(board.owner.id === req.user.id) { %>
     var triggerRoom = function(){
-      io.socket.post('/joinGameRoom',{id: <%-board.id%> },function serverResponded (body, JWR) {
-        console.log('Sails responded with: ', body);
-        if(body.error){
-          $('#error-modal').find('#message').html(body.error);
-          $('#error-modal').foundation('reveal', 'open');
-        }else{
-          $('#joinedModal').foundation('reveal', 'open');
-        }
+      io.socket.post('/joinGameRoom',{id: <%-board.id%> },function serverResponded (data, JWR) {
+        console.log('Sails responded with: ', data);
+         if(!data.error)
+        App.core['board-page']().updatePlayersList(data);
       });
     };
     triggerRoom();
@@ -57,7 +53,7 @@
       <li class='center' data-user-id='{{id}}'>
               <img src="{{gravatarImage}}" class="profile-img" width="50">
               <h3 class='white center'>{{name}}</h3>  
-              
+              <div class="circle tiny icon"></div>
             </li>
     {{/each}}
   </script>

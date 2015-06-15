@@ -33,7 +33,7 @@ var game = (function (){
 	$playerTwoPosition ,
 	playerOnePosition = 0,
 	playerTwoPosition = 0,
-	$rows,boardId ;
+	$rows,boardId,userId ;
 
 
 	var decidePosition = function(position,$player){
@@ -137,6 +137,7 @@ var game = (function (){
 	}
 	var init =  function() {
 		boardId = $('#board-page').data('id');
+		userId  = $('#board-page').data('currid');
 		bindEvents();
 	}
 	var showPlayerPanel = function() {
@@ -159,8 +160,10 @@ var game = (function (){
 		var $scoreBoard = $('#score-board'),
 		$players = $('#score-board').find('[data-user-id]');
 		for (var  key in board.metaData) {
-				var player = board.metaData[key];
-				$players.filter('[data-user-id="'+key+'"]').find('.profile-img').css('border-color',player.colour);
+				var player = board.metaData[key],
+				$player = $players.filter('[data-user-id="'+key+'"]');
+				$player.find('.profile-img').css('border-color',player.colour);
+				$player.find('icon').css('background',player.colour);
 		};
 		updatePlayersTurn(board);
 		
@@ -170,7 +173,18 @@ var game = (function (){
 		turnUser = board.metaData.turn,
 		$currentUser = $scoreBoard.find('[data-user-id="'+turnUser+'"]');
 		$scoreBoard.find('.profile-img').removeClass('active');
-		$currentUser.find('.profile-img').css('	background-color', 'rgba(255,255,25');
+		$currentUser.css('	background-color', 'rgba(255,255,255,0.5');
+		if(userId === turnUser){
+			enableDiceButton();
+		}else{
+			disableDiceButton();
+		}
+	}
+	var enableDiceButton = function() {
+		$('#dice').removeClass('disabled');
+	}
+	var disableDiceButton = function() {
+		$('#dice').addClass('disabled');
 	}
 	return {
 		init: init,

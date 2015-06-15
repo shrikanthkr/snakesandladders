@@ -10,7 +10,8 @@ body{
   max-width: 75.5rem;
 }
 .tiny{
-  width:30%;
+  width:30px;
+  height:30px;
 }
 .reveal-modal-bg {
   position: fixed;
@@ -33,6 +34,9 @@ body{
 }
 .white{
   color:white;
+}
+.circle{
+  border-radius: 50%;
 }
 .disabled{
   pointer-events: none;
@@ -111,19 +115,6 @@ body{
 
 .opened{
   transform: translateY(0%);
-}
-.icons{
-  position: absolute;
-  width: 70px;
-  height:70px;
-  display:inline-block;
-}
-.icons.small{
-	width: 20px;
-  height:20px;
-}
-.places{
-  display: inline-block;
 }
 form{
   .element{

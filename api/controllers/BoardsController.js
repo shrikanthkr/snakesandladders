@@ -61,7 +61,7 @@
  				socket.join(board.id);
  				BoardServices.metaData(board.toJSON(),function(err,reply,data) {
  					if(err){
- 							socket.emit(board.id).emit('joinGame',{error:err});
+ 						socket.emit(board.id).emit('joinGame',{error:err});
  					}else{
  						Redis.get({
  							key: board.id
@@ -80,7 +80,23 @@
  		var socket = req.socket,
  		io = sails.io;
  		socket.join(req.param('id'));
- 		
+ 		Board.findOne({id: req.param('id')}).populate('players').exec(function(err,board){
+ 			BoardServices.metaData(board.toJSON(),function(err,reply,data) {
+ 				if(err){
+ 					socket.emit(board.id).emit('joinGame',{error:err});
+ 				}else{
+ 					Redis.get({
+ 						key: board.id
+ 					},function(err,data) {
+ 						board.metaData = JSON.parse(data);
+ 						res.json({
+ 							board: board
+ 						});
+ 					})
+ 				}
+ 			});
+ 			
+ 		});
  	},
 
  	diceRolled: function(req,res) {
