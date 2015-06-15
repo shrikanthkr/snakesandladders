@@ -94,25 +94,7 @@
     port: process.env.POSTGRES_SNAKES_PORT,
     poolSize: 2
   },
-
- redis_dev: {
-    adapter: 'redis',
-   port: 6379,
-   host: 'localhost',
-   password: null,
-   database: null,
-   options: {
-
-    // low-level configuration
-    // (redis driver options)
-    parser: 'hiredis',
-    return_buffers: false,
-    detect_buffers: false,
-    socket_nodelay: true,
-    no_ready_check: false,
-    enable_offline_queue: true
-  }
-},
+  
 redis: {
     adapter: 'redis',
    port: process.env.REDISTOGO_REDIS_SNAKES_PORT,
