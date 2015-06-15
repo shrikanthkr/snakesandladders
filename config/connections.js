@@ -95,7 +95,7 @@
     poolSize: 2
   },
 
-  redis_dev: {
+ redis_dev: {
     adapter: 'redis',
    port: 6379,
    host: 'localhost',
