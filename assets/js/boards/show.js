@@ -1,30 +1,4 @@
 var game = (function (){
-	var ladders = {
-		8: 26,
-		21:82,
-		43:77,
-		50:91,
-		54:93,
-		62:96,
-		66:87,
-		80:100
-	};
-
-	var snakes  = {
-		44:19,
-		46:5,
-		48:9,
-		52:11,
-		55:7,
-		59:17,
-		64:36,
-		69:33,
-		73:1,
-		83:19,
-		92:51,
-		95:24,
-		98:28
-	}
 	var $number,
 	isMyturn = false,
 	$playerOne,
@@ -101,7 +75,6 @@ var game = (function (){
 		$rows = $('#tables-container').find('tr');	
 	}
 	var rollDice = function (argument) {
-		if(isMyturn){
 			var number = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
 			$number.text(number);
 			if(playerOnePosition+number > 100){
@@ -117,10 +90,6 @@ var game = (function (){
 			playerOnePosition = decidePosition(playerOnePosition,$playerOne);
 			$playerOnePosition.html(playerOnePosition);
 			io.socket.post('/diceRolled');
-			window.isMyturn = false;
-		}else{
-			$('#turn-modal').foundation('reveal', 'open');
-		}
 
 	}
 	var joinGame = function() {
@@ -137,8 +106,7 @@ var game = (function (){
 	}
 	var init =  function() {
 		boardId = $('#board-page').data('id');
-		userId  = $('#board-page').data('currid');
-		
+
 		$("#ladder-image").one("load", function() {
 			drawTable();
 		})
@@ -176,6 +144,7 @@ var game = (function (){
 	var updatePlayersTurn = function(board) {
 		var $scoreBoard = $('#score-board'),
 		turnUser = board.metaData.turn,
+		userId  = $('#board-page').data('currid');
 		$currentUser = $scoreBoard.find('[data-user-id="'+turnUser+'"]');
 		$scoreBoard.find('.profile-img').removeClass('active');
 		$currentUser.css('	background-color', 'rgba(255,255,255,0.5');

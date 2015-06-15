@@ -102,10 +102,15 @@
  	diceRolled: function(req,res) {
  		var socket = req.socket,
  		io = sails.io,
- 		board =socket.client.board;
+ 		board_id = req.param('id'),
+ 		user_id = req.session.passport.user;
+ 		number = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
  		console.log('dice rolled');
- 		console.log('publishing:'+board.id);
- 		socket.broadcast.to(board.id).emit('message',{number: req.param('number')});
+ 		console.log('publishing:');
+ 		BoardServices.diceCalculations( board_id,user_id,number,function(err,reply) {
+ 			io.to(board_id).emit('message',{board: reply});
+ 		});
+ 		
  	},
  	gameOver: function(req,res) {
  		var socket = req.socket,
