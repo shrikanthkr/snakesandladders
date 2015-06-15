@@ -1,92 +1,61 @@
-<div class="white" id="board-page"  data-role='page' data-id='<%- board.id %>'>
-  <div class="container">
-    <img src="/images/snakesladders.jpg" id='ladder-image'  class='ladder-image' alt=""/>
-    <div id='tables-container' class="ladder-image"></div>
-  </div>
-
-  <div  class='black-container score-board left'> 
-    <h1><%- board.name %></h1> 
-     <div id='join' class='button input white transparent'>Join</div>
-    <div id='dice' class='disabled button input white transparent'>Roll Dice: <span id='number'>0</span></div>
-    <br>
-
-    <br>
-
-  <ul id="players_target" class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">
-    <% _.each(board.players, function (player) { %>
-    <li class='circle large'>
-      <h3 class='white'><%= player.name %></h3>  
-    </li>
-
-    <% }) %>
-  </ul>
-
-
-    <span id='player-one-name'>You : </span>
-    <div id='player-one-position' class='places'></div> 
-    <div id='player-one' class='player one icons small transition'> 
-      <img src="/images/playerone.png"  alt="Player 1"/>
+  <div class="white" id="board-page"  data-role='page' data-id='<%- board.id %>'>
+    <div class="container">
+      <img src="/images/snakesladders.jpg" id='ladder-image'  class='ladder-image' alt=""/>
+      <div id='tables-container' class="ladder-image"></div>
     </div>
-    <br>
-    <span id='player-two-name'>Other : </span>
-    <div id='player-two-position' class='places'></div>
-    <div id='player-two' class='player two icons small transition'> 
-      <img src="/images/playertwo.png"  alt="Player 2"/>
+
+    <div  id='score-board' class='black-container score-board transition'> 
+      <div class="row">
+        <div class="large-4 medium-3 small-10 large-uncentered medium-uncentered small-centered columns">
+          <h1><%- board.name %></h1> 
+          <div id='join' class='button button-th'>Join</div>
+          <div id='dice' class='disabled button button-th'>Roll Dice: <span id='number'>0</span></div>
+
+
+        </div>
+        <div class="large-7 medium-8 small-10 large-uncentered medium-uncentered small-centered columns">
+          <ul id="players_target" class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">
+            <% _.each(board.players, function (player) { %>
+            <li class='center'>
+              <img src="<%= req.user.gravatar_image()%>" class="profile-img" width="50">
+              <h3 class='white center'><%= player.name %></h3>  
+            </li>
+
+            <% }) %>
+          </ul>
+        </div>
+
+
+      </div>
     </div>
+
+    <div id="show-button" class='center-horizontal transition'>
+      <div class="absolute center-both">
+        ^
+      </div>
+    </div>
+
   </div>
-
-
-
-
-  <div id="joinedModal" class="reveal-modal tiny" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-    <h2 id="modalTitle">Hey!.</h2>
-    <p class="lead"> You have joined a new game.</p>
-    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-  </div>
-  <div id="player-joined-modal" class="reveal-modal tiny center" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-    <h2 id="modalTitle">Hey!</h2>
-    <p class="lead">A new player hjas joined your game, click to start playing</p>
-    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-  </div>
-
-  <div id="player-waiting-modal" class="reveal-modal tiny" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-    <h2 id="modalTitle">Hey!</h2>
-    <p class="lead">Waiting for a player to join</p>
-    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-  </div>
-
-  <div id="player-disconnected-modal" class="reveal-modal tiny" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-    <h2 id="modalTitle">Hey!</h2>
-    <p class="lead">Ohter player had left</p>
-    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-  </div>
-
-  <div id="turn-modal" class="reveal-modal tiny" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-    <h2 id="modalTitle">Hey!</h2>
-    <p class="lead">Waiting for other player to play.</p>
-    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-  </div>
-</div>
 <script >
   <% if(board.owner.id === req.user.id) { %>
     var triggerRoom = function(){
       io.socket.post('/joinGameRoom',{id: <%-board.id%> },function serverResponded (body, JWR) {
-      console.log('Sails responded with: ', body);
-      if(body.error){
-        $('#error-modal').find('#message').html(body.error);
-        $('#error-modal').foundation('reveal', 'open');
-      }else{
-        $('#joinedModal').foundation('reveal', 'open');
-      }
-    });
+        console.log('Sails responded with: ', body);
+        if(body.error){
+          $('#error-modal').find('#message').html(body.error);
+          $('#error-modal').foundation('reveal', 'open');
+        }else{
+          $('#joinedModal').foundation('reveal', 'open');
+        }
+      });
     };
     triggerRoom();
     <%}%>
-</script>
-<script id="players_template" type="text/x-handlebars-template">
-  {{#each board.players}}
+  </script>
+  <script id="players_template" type="text/x-handlebars-template">
+    {{#each board.players}}
     <li data-user-id='{{id}}'>
       <h3 class='white'>{{name}}</h3>  
     </li>
-  {{/each}}
-</script>
+    {{/each}}
+  </script>

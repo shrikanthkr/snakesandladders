@@ -139,9 +139,19 @@ var game = (function (){
 		boardId = $('#board-page').data('id');
 		bindEvents();
 	}
+	var showPlayerPanel = function() {
+		var $scoreBoard = $('#score-board'),
+		isOpen = $scoreBoard.hasClass('opened');
+		if(isOpen){
+			$scoreBoard.removeClass('opened')
+		}else{
+			$scoreBoard.addClass('opened')
+		}
+	}
 	var bindEvents = function() {
 		$('body').off('click','#dice').on('click','#dice',rollDice);
 		$('body').off('click','#join').on('click','#join',joinGame);
+		$('body').off('click','#show-button').on('click','#show-button',showPlayerPanel);
 	}
 	var updatePlayersList = function(board) {
 		App.render('players_template','players_target',board);
