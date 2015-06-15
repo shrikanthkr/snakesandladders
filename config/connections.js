@@ -85,16 +85,6 @@
     ssl: true
   },
 
-  postgresqlServer_dev: {
-    adapter: 'sails-postgresql',
-    host: process.env.POSTGRES_SNAKES_HOSTNAME,
-    user:  process.env.POSTGRES_SNAKES_USER,
-    password:  process.env.POSTGRES_SNAKES_PASSWORD,
-    database:  process.env.POSTGRES_SNAKES_DATABASE,
-    port: process.env.POSTGRES_SNAKES_PORT,
-    poolSize: 2
-  },
-  
 redis: {
     adapter: 'redis',
    port: process.env.REDISTOGO_REDIS_SNAKES_PORT,
