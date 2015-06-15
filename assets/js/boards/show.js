@@ -156,15 +156,21 @@ var game = (function (){
 	var updatePlayersList = function(data) {
 		var board = data.board;
 		App.render('players_template','players_target',board);
-		var $scoreBoard = $('#score-board');
+		var $scoreBoard = $('#score-board'),
+		$players = $('#score-board').find('[data-user-id]');
+		for (var  key in board.metaData) {
+				var player = board.metaData[key];
+				$players.filter('[data-user-id="'+key+'"]').find('.profile-img').css('border-color',player.colour);
+		};
 		updatePlayersTurn(board);
 		
 	}
 	var updatePlayersTurn = function(board) {
 		var $scoreBoard = $('#score-board'),
-		$userProfile = $scoreBoard.find('[data-user-id="'+board.newJoinee+'"]');
+		turnUser = board.metaData.turn,
+		$currentUser = $scoreBoard.find('[data-user-id="'+turnUser+'"]');
 		$scoreBoard.find('.profile-img').removeClass('active');
-		$userProfile.find('.profile-img').addClass('active');
+		$currentUser.find('.profile-img').css('	background-color', 'rgba(255,255,25');
 	}
 	return {
 		init: init,

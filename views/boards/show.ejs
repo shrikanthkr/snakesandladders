@@ -54,9 +54,10 @@
   </script>
   <script id="players_template" type="text/x-handlebars-template">
     {{#each players}}
-      <li class='center' data-user-id='<%= req.user.id%>'>
+      <li class='center' data-user-id='{{id}}'>
               <img src="{{gravatarImage}}" class="profile-img" width="50">
               <h3 class='white center'>{{name}}</h3>  
+              
             </li>
     {{/each}}
   </script>
