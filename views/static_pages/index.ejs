@@ -1,15 +1,17 @@
 <div class="row">
-	<div class='header'>Want to Play? </div>
 	<div class=" large-5 medium-8 small-10  large-centered small-centered medium-centered columns ">
-		<form method="POST" action="/login" class='center black-container form radius'>
+		<form method="POST" action="/login" class='form-panel'>
 			<%- req.flash('message') %>
-			<input placeholder="Email" class='element input white transparent  ' type="email" name="email" value="s@y.com"/>
-			<input placeholder="Password" class='input white transparent ' type="password" name="password" value="admin123"/>
-			<input class='button expand element input white transparent ' type="submit" value="Sign In ">
+			<h2 class="form-heading">Want to Play?</h2>
+			<div class="panel-wrap">
+				<input placeholder="Email" class='panel-inputs' type="email" name="email" value="s@y.com"/>
+				<input placeholder="Password" class='panel-inputs' type="password" name="password" value="admin123"/>
+				<input class='button expand element button-th' type="submit" value="Sign In ">
 
-
-			<div class='element'>(or)</div>
-			<a href='users/new' class='button center expand input white transparent  ' type="submit" value="">Sign Up</a>
+				<hr>
+				
+				<a href='users/new' class='button center expand button-th' type="submit" value="">Sign Up</a>
+			</div>
 		</form>
 	</div>
 </div>
