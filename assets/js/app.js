@@ -6,7 +6,7 @@ App = {
 	core: {},
 	register: function(selector,module){
 		$( document ).on( "pageshow", "#"+selector, function( event ) {
-			module().init();
+			module.init();
 		});
 		this.core[selector] = module;
 	},

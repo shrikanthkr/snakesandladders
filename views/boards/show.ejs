@@ -43,7 +43,7 @@
       io.socket.post('/joinGameRoom',{id: <%-board.id%> },function serverResponded (data, JWR) {
         console.log('Sails responded with: ', data);
          if(!data.error)
-        App.core['board-page']().updatePlayersList(data);
+        App.core['board-page'].updatePlayersList(data);
       });
     };
     $(document).on('triggerRoom',triggerRoom);

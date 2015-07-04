@@ -22,7 +22,7 @@
     socket.on('joinGame', function messageReceived(data) {
       log('Opponenet Joined ', data);
       if(!data.error)
-        App.core['board-page']().updatePlayersList(data);
+        App.core['board-page'].updatePlayersList(data);
     });
     socket.on('gameOver', function messageReceived(data) {
       log('Opponenet Joined ', message);
@@ -32,7 +32,7 @@
     });
     socket.on('message', function messageReceived(message) {
       log('New comet message received :: ', message);
-      App.core['board-page']().updatePlayersTurn(message);
+      App.core['board-page'].updatePlayersTurn(message);
     });
     socket.on('created', function messageReceived(message) {
       log('Game created ', message);

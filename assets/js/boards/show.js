@@ -1,7 +1,10 @@
-var game = (function (){
-	var $number,
-	$rows,boardId,userId ;
-	var drawTable = function() {
+var game = {
+	$number: null,
+	$rows: null,
+	boardId: null,
+	userId: null,
+	boardPlayers: null, 
+	drawTable : function() {
 		var $ladderImage  =$('#ladder-image'),
 		cellWidth = $ladderImage.width()/10,
 		cellHeight = $ladderImage.height()/10,
@@ -9,7 +12,7 @@ var game = (function (){
 		table = document.createElement('TABLE'),
 		tableBody = document.createElement('TBODY');
 		table.appendChild(tableBody);
-
+		var _this = this;
 
 		for (var i=9; i>=0; i--){
 			var tr = document.createElement('TR');
@@ -40,15 +43,17 @@ var game = (function (){
 		$(myTableDiv).html('');
 		myTableDiv && myTableDiv.appendChild(table);
 		$(myTableDiv).width($ladderImage.width());
-		$number = $('#number'),
-		$rows = $('#tables-container').find('tr');	
+		_this.$number = $('#number'),
+		_this.$rows = $('#tables-container').find('tr');	
 		$(document).trigger('triggerRoom');
-	}
-	var rollDice = function (argument) {
+	},
+	rollDice : function (event) {
+		var _this = this;
 		io.socket.post('/diceRolled',{id: $('#board-page').data('id')});
-	}
-	var joinGame = function() {
-		io.socket.post('/joinGame',{id: boardId },function serverResponded (body, JWR) {
+	},
+	joinGame : function(event) {
+		var _this = this;
+		io.socket.post('/joinGame',{id: _this.boardId },function serverResponded (body, JWR) {
 			window.isMyturn = false;
 			console.log('Sails responded with: ', body);
 			if(body.error){
@@ -58,17 +63,18 @@ var game = (function (){
 				$('#joinedModal').foundation('reveal', 'open');
 			}
 		});
-	}
-	var init =  function() {
-		boardId = $('#board-page').data('id');
-
+	},
+	init :  function() {
+		var _this = this;
+		_this.boardId = $('#board-page').data('id');
+		_this.boardPlayers = {};
 		$("#ladder-image").one("load", function() {
-			drawTable();
+			_this.drawTable();
 		})
 		
-		bindEvents();
-	}
-	var showPlayerPanel = function() {
+		_this.bindEvents();
+	},
+	showPlayerPanel : function() {
 		var $scoreBoard = $('#score-board'),
 		isOpen = $scoreBoard.hasClass('opened');
 		if(isOpen){
@@ -76,13 +82,15 @@ var game = (function (){
 		}else{
 			$scoreBoard.addClass('opened')
 		}
-	}
-	var bindEvents = function() {
-		$('body').off('click','#dice').on('click','#dice',rollDice);
-		$('body').off('click','#join').on('click','#join',joinGame);
-		$('body').off('click','#show-button').on('click','#show-button',showPlayerPanel);
-	}
-	var updatePlayersList = function(data) {
+	},
+	bindEvents : function() {
+		var _this = this;
+		$('body').off('click','#dice').on('click','#dice',_this.rollDice.bind(_this) );
+		$('body').off('click','#join').on('click','#join',_this.joinGame.bind(_this ) );
+		$('body').off('click','#show-button').on('click','#show-button',_this.showPlayerPanel.bind(_this) );
+	},
+	updatePlayersList : function(data) {
+		var _this = this;
 		var board = data.board;
 		App.render('players_template','players_target',board);
 		App.render('players_icons_template','players_icons_target',board);
@@ -95,32 +103,39 @@ var game = (function (){
 			$playerPosition = $playerPositions.filter('[data-user-id="'+key+'"]');
 			$player.find('.profile-img').css('border-color',player.colour);
 			$playerPosition.css('background',player.colour);
-			placeIcon(player.position,$playerPosition);
+			_this.placeIcon(player.position,$playerPosition);
 		};
-		updatePlayersTurn(board);
+		board.players.forEach(function(value,index){
+			_this.boardPlayers[value.id] =value;
+		});
+		_this.updatePlayersTurn(board);
 		
-	}
-	var updatePlayersTurn = function(data) {
+	},
+	updatePlayersTurn : function(data) {
+		var _this = this;
 		var $scoreBoard = $('#score-board'),
 		metaData = data.metaData,
 		turnUser = metaData.turn,
 		$playerPositions = $('#players_icons_target').find('[data-user-id]');
-		userId  = $('#board-page').data('currid');
+		_this.userId  = $('#board-page').data('currid');
 		$currentUser = $scoreBoard.find('[data-user-id="'+turnUser+'"]');
 		$scoreBoard.find('.profile-img').removeClass('active');
 		$currentUser.css('	background-color', 'rgba(255,255,255,0.5');
-			if(userId == turnUser){
-				enableDiceButton();
+			if(_this.userId == turnUser){
+				alertify.success('Your Turn');
+				_this.enableDiceButton();
 			}else{
-				disableDiceButton();
+				_this.disableDiceButton();
+				alertify.log(_this.boardPlayers[turnUser].name + ' has to play');
 			}
 			for (var  key in data.metaData) {
 				var player = data.metaData[key],
 				$playerPosition = $playerPositions.filter('[data-user-id="'+key+'"]');
-				placeIcon(player.position,$playerPosition);
+				_this.placeIcon(player.position,$playerPosition);
 			};
-		}
-		var placeIcon  = function(position,$player){
+		},
+		placeIcon  : function(position,$player){
+			var _this = this;
 			if(!position) return;
 			var $node = $('#tables-container').find('[data-nodeid="'+position+'"]'),
 			adjustX = $node.width()/2,
@@ -129,21 +144,14 @@ var game = (function (){
 			positionY = $node.offset().top + adjustY;
 			$player.css({top: positionY, left: positionX});
 
-		}
-		var enableDiceButton = function() {
+		},
+		enableDiceButton : function() {
 			$('#dice').removeClass('disabled');
-		}
-		var disableDiceButton = function() {
+		},
+		disableDiceButton : function() {
 			$('#dice').addClass('disabled');
 		}
-		return {
-			init: init,
-			updatePlayersList: updatePlayersList,
-			updatePlayersTurn:  updatePlayersTurn
-
-		//updateView: updateView
-	}
-});
+};
 App.register('board-page',game);
 
 
