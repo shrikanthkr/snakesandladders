@@ -63,20 +63,19 @@
  			boardMeta[index].id = index;
  			players.push(boardMeta[index]);
  		}
- 		players = _.sortBy(players, 'joinedAt');
- 			LogServices.print(players);
- 		for(var i=0;i<players.length;i++){
- 			var player = players[i];
- 			LogServices.print(player);
- 			if(player.id == user_id ){
- 				var   expectedPlayer = players[i+1] ? players[i+1] : players[0];
- 				LogServices.print(expectedPlayer);
- 				LogServices.print(expectedPlayer.state +":"+ BoardServices.state.playing);
- 				if(expectedPlayer.state === BoardServices.state.playing)
- 					return  expectedPlayer.id;
+ 		players = _.sortBy(_.filter(players,{'state': BoardServices.state.playing}), 'joinedAt');
+ 		LogServices.print(players);
+ 		if(players.length <=1){
+ 			return null;
+ 		}else{
+ 			for(var i=0;i<players.length;i++){
+ 				var player = players[i];
+ 				LogServices.print(player);
+ 				if(player.id == user_id ){
+ 					return players[i+1] ? players[i+1].id : players[0].id;
+ 				}
  			}
  		}
- 		return null;
  	},
  	state: {
  		playing: 1,

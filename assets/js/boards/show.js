@@ -103,7 +103,6 @@ var game = {
 			$playerPosition = $playerPositions.filter('[data-user-id="'+key+'"]');
 			$player.find('.profile-img').css('border-color',player.colour);
 			$playerPosition.css('background',player.colour);
-			_this.placeIcon(player.position,$playerPosition);
 		};
 		board.players.forEach(function(value,index){
 			_this.boardPlayers[value.id] =value;
@@ -130,14 +129,14 @@ var game = {
 					alertify.log(_this.boardPlayers[turnUser].name + ' has to play');
 				else{
 						alertify.log('Game Over');
-						return;
 				}
 					
 			}
 			for (var  key in data.metaData) {
 				var player = data.metaData[key],
 				$playerPosition = $playerPositions.filter('[data-user-id="'+key+'"]');
-				_this.placeIcon(player.position,$playerPosition);
+				if(player)
+					_this.placeIcon(player.position,$playerPosition);
 			};
 		},
 		placeIcon  : function(position,$player){
