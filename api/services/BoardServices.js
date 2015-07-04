@@ -7,6 +7,8 @@
  var colours = ['#A5CD3E','#FFFFCC','#377D1F','#FE4F4B','#5F584B','#8E836F'];
  module.exports = {
  	metaData: function(board,cb){
+ 		LogServices.print('Printing Board on Meta Data ')
+ 		LogServices.print(board)
  		Redis.get({
  			key: board.id
  		},function(err,reply) {
@@ -18,12 +20,14 @@
  				meta[player.id].colour = meta[player.id].colour || colours[player.id%6];
  				meta[player.id].position = meta[player.id].position || 0;
  				meta[player.id].joinedAt = meta[player.id].joinedAt || new Date().getTime();
+ 				meta[player.id].state = meta[player.id].state || BoardServices.state.playing;
  			}
  			meta.turn = meta.turn || _.first(board.players).id;
  			Redis.set({
  				key: board.id,
  				value: JSON.stringify(meta)
  			},cb)
+
  		});
  	},
  	diceCalculations: function(board_id,user_id,position,cb) {
@@ -33,11 +37,16 @@
  			var meta = JSON.parse(reply) || {};
  			meta = meta ? meta : {};
  			var addedPosition = meta[user_id].position + position,
- 			positionChange = BoardServices.ladders[addedPosition] || BoardServices.snakes[addedPosition] || addedPosition;
+ 			positionChange = /*BoardServices.ladders[addedPosition] || BoardServices.snakes[addedPosition] || */addedPosition;
+ 			if(positionChange > 100){
+ 				positionChange =  meta[user_id].position;
+ 			}
+ 			if(positionChange === 100){
+ 				meta[user_id].state =  BoardServices.state.over;
+ 			}
  			meta[user_id].position = positionChange;
  			meta.turn = BoardServices.turnCalculations(meta,user_id);
- 			console.log(meta);
- 			
+ 			LogServices.print(meta);
  			Redis.set({
  				key: board_id,
  				value: JSON.stringify(meta)
@@ -50,23 +59,20 @@
  			boardMeta[index].id = index;
  			players.push(boardMeta[index]);
  		}
- 		
  		players = _.sortBy(players, 'joinedAt')
- 		
- 		console.log(user_id+'*******************')
- 		
  		for(var i=0;i<players.length;i++){
  			var player = players[i];
- 			console.log('***********************');
- 			console.log('index: '+i);
-
- 			console.log(player);
- 			console.log('***********************');
- 			if(player.id == user_id){
- 				return players[i+1].id || players[0].id ;
+ 			if(player.id == user_id ){
+ 				var   expectedPlayer = players[i+1];
+ 				if(expectedPlayer.state === BoardServices.state.playing)
+ 					return players[i+1].id || players[0].id ;
  			}
-
  		}
+ 		return null;
+ 	},
+ 	state: {
+ 		playing: 1,
+ 		over: 2
  	},
  	snakes : {
  		44:19,

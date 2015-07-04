@@ -22,13 +22,13 @@
 
  			board.players.add(req.user.id);
  			board.save(function(err,board) {
- 				console.log(err);
+ 				LogServices.print(err);
  				if(err){
  					req.flash('message',err.message || err.info);
  					return res.redirect('/boards/new');
  				}else{
- 					console.log('returning board: ');
- 					console.log(board);
+ 					LogServices.print('returning board: ');
+ 					LogServices.print(board);
 
  					return res.redirect('boards/'+board.id);
  				}
@@ -36,12 +36,12 @@
  		});
  	},
  	show: function(req,res) {
- 		console.log('showing board: '+req.params['id']);
+ 		LogServices.print('showing board: '+req.params['id']);
  		Board.findOne({id: req.params['id']})
  		.populate('players')
  		.populate('owner')
  		.exec(function(err,board) {
- 			console.log(board);
+ 			LogServices.print(board);
  			res.view({
  				board: board
  			})
@@ -54,10 +54,10 @@
  		user_id = req.session.passport.user;
  		Board.join(	User.findOne({id: user_id}),req.param('id'),function(err,board) {
  			if(err){
- 				console.log(err)
+ 				LogServices.print(err)
  				socket.emit('joinGame',{error: 'You have already joined'});
  			}else{
- 				console.log('Joining Room:'+board.id )
+ 				LogServices.print('Joining Room:'+board.id )
  				socket.join(board.id);
  				BoardServices.metaData(board.toJSON(),function(err,reply,data) {
  					if(err){
@@ -76,7 +76,7 @@
  		});
  	},
  	joinGameRoom: function(req,res) {
- 		console.log('Firstttime user join rolled');
+ 		LogServices.print('Firstttime user join rolled');
  		var socket = req.socket,
  		io = sails.io;
  		socket.join(req.param('id'));
@@ -107,8 +107,8 @@
  		board_id = req.param('id'),
  		user_id = req.session.passport.user;
  		number = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
- 		console.log('dice rolled');
- 		console.log('publishing:');
+ 		LogServices.print('dice rolled');
+ 		LogServices.print('publishing:');
  		BoardServices.diceCalculations( board_id,user_id,number,function(err,reply) {
  			Redis.get({
  						key: board_id

@@ -126,7 +126,13 @@ var game = {
 				_this.enableDiceButton();
 			}else{
 				_this.disableDiceButton();
-				alertify.log(_this.boardPlayers[turnUser].name + ' has to play');
+				if(turnUser)
+					alertify.log(_this.boardPlayers[turnUser].name + ' has to play');
+				else{
+						alertify.log('Game Over');
+						return;
+				}
+					
 			}
 			for (var  key in data.metaData) {
 				var player = data.metaData[key],

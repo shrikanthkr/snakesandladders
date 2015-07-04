@@ -103,6 +103,35 @@ redis: {
     no_ready_check: false,
     enable_offline_queue: true
   }
+},
+
+  postgresqlServer_dev: {
+    adapter: 'sails-postgresql',
+    host: process.env.POSTGRES_SNAKES_HOSTNAME,
+    user:  process.env.POSTGRES_SNAKES_USER,
+    password:  process.env.POSTGRES_SNAKES_PASSWORD,
+    database:  process.env.POSTGRES_SNAKES_DATABASE,
+    port: process.env.POSTGRES_SNAKES_PORT,
+    poolSize: 2
+  },
+
+  redis_dev: {
+    adapter: 'redis',
+   port: 6379,
+   host: 'localhost',
+   password: null,
+   database: null,
+   options: {
+
+    // low-level configuration
+    // (redis driver options)
+    parser: 'hiredis',
+    return_buffers: false,
+    detect_buffers: false,
+    socket_nodelay: true,
+    no_ready_check: false,
+    enable_offline_queue: true
+  }
 }
 
   /***************************************************************************
