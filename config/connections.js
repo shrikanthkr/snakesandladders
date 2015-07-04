@@ -113,7 +113,7 @@ redis: {
     database:  process.env.POSTGRES_SNAKES_DATABASE,
     port: process.env.POSTGRES_SNAKES_PORT,
     poolSize: 2
-  },
+  }/*,
 
   redis_dev: {
     adapter: 'redis',
@@ -132,7 +132,7 @@ redis: {
     no_ready_check: false,
     enable_offline_queue: true
   }
-}
+}*/
 
   /***************************************************************************
   *                                                                          *
