@@ -43,6 +43,7 @@
  			}
  			if(positionChange === 100){
  				meta[user_id].state =  BoardServices.state.over;
+ 				positionChange =100;
  			}
  			meta[user_id].position = positionChange;
  			meta.turn = BoardServices.turnCalculations(meta,user_id);
@@ -55,17 +56,24 @@
  	},
  	turnCalculations: function (boardMeta,user_id) {
  		var players = [];
+
+ 		delete boardMeta.turn;
+
  		for(index in boardMeta){
  			boardMeta[index].id = index;
  			players.push(boardMeta[index]);
  		}
- 		players = _.sortBy(players, 'joinedAt')
+ 		players = _.sortBy(players, 'joinedAt');
+ 			LogServices.print(players);
  		for(var i=0;i<players.length;i++){
  			var player = players[i];
+ 			LogServices.print(player);
  			if(player.id == user_id ){
- 				var   expectedPlayer = players[i+1];
+ 				var   expectedPlayer = players[i+1] ? players[i+1] : players[0];
+ 				LogServices.print(expectedPlayer);
+ 				LogServices.print(expectedPlayer.state +":"+ BoardServices.state.playing);
  				if(expectedPlayer.state === BoardServices.state.playing)
- 					return players[i+1].id || players[0].id ;
+ 					return  expectedPlayer.id;
  			}
  		}
  		return null;
