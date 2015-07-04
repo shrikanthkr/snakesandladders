@@ -18,7 +18,7 @@
  				var player = board.players[index];
  				meta[player.id] = meta[player.id] ? meta[player.id]  : {};
  				meta[player.id].colour = meta[player.id].colour || colours[player.id%6];
- 				meta[player.id].position = meta[player.id].position || 0;
+ 				meta[player.id].positions = meta[player.id].positions || [0,0];
  				meta[player.id].joinedAt = meta[player.id].joinedAt || new Date().getTime();
  				meta[player.id].state = meta[player.id].state || BoardServices.state.playing;
  			}
@@ -36,16 +36,17 @@
  		},function(err,reply) {
  			var meta = JSON.parse(reply) || {};
  			meta = meta ? meta : {};
- 			var addedPosition = meta[user_id].position + position,
- 			positionChange = /*BoardServices.ladders[addedPosition] || BoardServices.snakes[addedPosition] || */addedPosition;
+ 			BoardServices.resetPositions(meta);
+ 			var addedPosition = meta[user_id].positions[1] + position,
+ 			positionChange = BoardServices.ladders[addedPosition] || BoardServices.snakes[addedPosition] || addedPosition;
  			if(positionChange > 100){
- 				positionChange =  meta[user_id].position;
+ 				positionChange =  meta[user_id].positions[1];
  			}
  			if(positionChange === 100){
  				meta[user_id].state =  BoardServices.state.over;
  				positionChange =100;
  			}
- 			meta[user_id].position = positionChange;
+ 			meta[user_id].positions = [addedPosition,positionChange];
  			meta.turn = BoardServices.turnCalculations(meta,user_id);
  			LogServices.print(meta);
  			Redis.set({
@@ -53,6 +54,12 @@
  				value: JSON.stringify(meta)
  			},cb)
  		});
+ 	},
+ 	resetPositions: function (boardMeta) {
+			for(key in boardMeta){
+				if(boardMeta[key].positions)
+				 		boardMeta[key].positions[0] = boardMeta[key].positions[1];
+			}
  	},
  	turnCalculations: function (boardMeta,user_id) {
  		var players = [];

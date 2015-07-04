@@ -128,26 +128,33 @@ var game = {
 				if(turnUser)
 					alertify.log(_this.boardPlayers[turnUser].name + ' has to play');
 				else{
-						alertify.log('Game Over');
+					alertify.log('Game Over');
 				}
-					
+
 			}
 			for (var  key in data.metaData) {
 				var player = data.metaData[key],
 				$playerPosition = $playerPositions.filter('[data-user-id="'+key+'"]');
 				if(player)
-					_this.placeIcon(player.position,$playerPosition);
+					_this.placeIcon(player.positions,$playerPosition);
 			};
 		},
-		placeIcon  : function(position,$player){
+		placeIcon  : function(positions,$player){
 			var _this = this;
-			if(!position) return;
-			var $node = $('#tables-container').find('[data-nodeid="'+position+'"]'),
-			adjustX = $node.width()/2,
-			adjustY = $node.height()/2,
-			positionX = $node.offset().left + adjustX, 
-			positionY = $node.offset().top + adjustY;
-			$player.css({top: positionY, left: positionX});
+			if(!positions || positions[0] == 0) return;
+			positions.forEach(function(value,index){
+				var time = (index + 1) * 500;
+				setTimeout(function (argument) {
+					var $node = $('#tables-container').find('[data-nodeid="'+value+'"]'),
+					adjustX = $node.width()/2,
+					adjustY = $node.height()/2,
+					positionX = $node.offset().left + adjustX, 
+					positionY = $node.offset().top + adjustY;
+					$player.css({top: positionY, left: positionX});
+				},time);
+			});
+			
+
 
 		},
 		enableDiceButton : function() {
@@ -156,8 +163,8 @@ var game = {
 		disableDiceButton : function() {
 			$('#dice').addClass('disabled');
 		}
-};
-App.register('board-page',game);
+	};
+	App.register('board-page',game);
 
 
 
