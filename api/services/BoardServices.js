@@ -36,6 +36,7 @@
  		},function(err,reply) {
  			var meta = JSON.parse(reply) || {};
  			meta = meta ? meta : {};
+ 			meta.number = position;
  			BoardServices.resetPositions(meta);
  			var addedPosition = meta[user_id].positions[1] + position,
  			positionChange = BoardServices.ladders[addedPosition] || BoardServices.snakes[addedPosition] || addedPosition;

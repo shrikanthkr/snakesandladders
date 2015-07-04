@@ -49,7 +49,10 @@ var game = {
 	},
 	rollDice : function (event) {
 		var _this = this;
-		io.socket.post('/diceRolled',{id: $('#board-page').data('id')});
+		_this.disableDiceButton();
+		io.socket.post('/diceRolled',{id: $('#board-page').data('id')},function(message){
+			if(message.error) _this.enableDiceButton();
+		});
 	},
 	joinGame : function(event) {
 		var _this = this;
@@ -117,6 +120,7 @@ var game = {
 		turnUser = metaData.turn,
 		$playerPositions = $('#players_icons_target').find('[data-user-id]');
 		_this.userId  = $('#board-page').data('currid');
+		_this.$number.text(metaData.number).fadeIn().fadeOut();
 		$currentUser = $scoreBoard.find('[data-user-id="'+turnUser+'"]');
 		$scoreBoard.find('.profile-img').removeClass('active');
 		$currentUser.css('	background-color', 'rgba(255,255,255,0.5');

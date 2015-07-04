@@ -1,7 +1,9 @@
   <div class="white" id="board-page"  data-role='page' data-id='<%- board.id %>' data-currid='<%=req.user.id%>'>
     <div class="container">
       <img src="/images/snakesladders.jpg" id='ladder-image'  class='ladder-image' alt=""/>
-      <div id='tables-container' class="ladder-image"></div>
+      <div id='tables-container' class="ladder-image"></div>]
+      <span id='number' style='display: none;'>0</span>
+      <div id='dice' class='disabled button button-th'>Roll Dice: </div>
     </div>
     <div id="players_icons_target">
       
@@ -11,9 +13,6 @@
         <div class="large-4 medium-3 small-10 large-uncentered medium-uncentered small-centered columns">
           <h1><%- board.name %></h1> 
           <div id='join' class='button button-th'>Join</div>
-          <div id='dice' class='disabled button button-th'>Roll Dice: <span id='number'>0</span></div>
-
-
         </div>
         <div class="large-7 medium-8 small-10 large-uncentered medium-uncentered small-centered columns">
           <ul id="players_target" class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">
