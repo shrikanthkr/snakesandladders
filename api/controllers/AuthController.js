@@ -25,6 +25,9 @@ module.exports = {
             }
             req.logIn(user, function(err) {
                 if (err) res.send(err);
+                console.log('!!!!!!!!!!!!!')
+                console.log(req.user)
+                console.log('!!!!!!!!!!!!!')
                 return res.redirect('/dashboard');
             });
 
