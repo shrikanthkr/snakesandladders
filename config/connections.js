@@ -87,11 +87,11 @@
 
 redis: {
     adapter: 'redis',
-   port: process.env.REDISTOGO_REDIS_SNAKES_PORT,
-   host: process.env.REDISTOGO_REDIS_SNAKES_HOSTNAME,
-   password:process.env.REDISTOGO_REDIS_SNAKES_PASSWORD,
-   database: process.env.REDISTOGO_REDIS_SNAKES_DATABASE,
-   user: process.env.REDISTOGO_REDIS_SNAKES_USER,
+   port: process.env.AZURE_REDIS_SNAKES_PORT,
+   host: process.env.AZURE_REDIS_SNAKES_HOSTNAME,
+   password:process.env.AZURE_REDIS_SNAKES_PASSWORD,
+   /*database: process.env.REDISTOGO_REDIS_SNAKES_DATABASE,*/
+   /*user: process.env.AZURE_REDIS_SNAKES_USER,*/
    options: {
 
     // low-level configuration
