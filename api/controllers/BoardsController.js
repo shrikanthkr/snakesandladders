@@ -90,6 +90,9 @@
  					Redis.get({
  						key: board.id
  					},function(err,data) {
+ 						board.players.forEach(function(user,index){
+ 							user.gravatarImage = user.gravatarImage();
+ 						})
  						board.metaData = JSON.parse(data);
  						res.json({
  							board: board
