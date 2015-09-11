@@ -24,6 +24,7 @@ var Connection = module.exports = function(config, cb) {
 
   // Create a new Connection
   this.connect(function(err, client) {
+
     if(err) {
       console.log(err);
       return cb(err);
@@ -51,7 +52,7 @@ var Connection = module.exports = function(config, cb) {
 Connection.prototype.connect = function(cb) {
   var client,
       config = this.config;
-
+     console.log(config);
   client = redis.createClient(config.port, config.host, config.options);
 
   if(config.password != null) {
