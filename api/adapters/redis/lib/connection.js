@@ -67,4 +67,10 @@ Connection.prototype.connect = function(cb) {
 
     cb(null, client);
   });
+  client.once('error', function(error) {
+     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    console.log(error);
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    cb(null, client);
+  });
 };
