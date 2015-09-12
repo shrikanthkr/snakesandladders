@@ -81,7 +81,7 @@
     password:  process.env.HEROKU_POSTGRES_SNAKES_PASSWORD,
     database:  process.env.HEROKU_POSTGRES_SNAKES_DATABASE,
     port: process.env.HEROKU_POSTGRES_SNAKES_PORT,
-    poolSize: 20,
+    poolSize: 5,
     ssl: true
   },
 
