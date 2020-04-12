@@ -55,6 +55,8 @@ module.exports = {
 					cb(err);
 				} else {
 					user.password = hash;
+					console.log(cb)
+					console.log(user)
 					cb();
 				}
 			});

@@ -23,50 +23,6 @@
 
   /***************************************************************************
   *                                                                          *
-  * Local disk storage for DEVELOPMENT ONLY                                  *
-  *                                                                          *
-  * Installed by default.                                                    *
-  *                                                                          *
-  ***************************************************************************/
-  localDiskDb: {
-    adapter: 'sails-disk'
-  },
-
-  /***************************************************************************
-  *                                                                          *
-  * MySQL is the world's most popular relational database.                   *
-  * http://en.wikipedia.org/wiki/MySQL                                       *
-  *                                                                          *
-  * Run: npm install sails-mysql                                             *
-  *                                                                          *
-  ***************************************************************************/
-  someMysqlServer: {
-    adapter: 'sails-mysql',
-    host: 'YOUR_MYSQL_SERVER_HOSTNAME_OR_IP_ADDRESS',
-    user: 'YOUR_MYSQL_USER',
-    password: 'YOUR_MYSQL_PASSWORD',
-    database: 'YOUR_MYSQL_DB'
-  },
-
-  /***************************************************************************
-  *                                                                          *
-  * MongoDB is the leading NoSQL database.                                   *
-  * http://en.wikipedia.org/wiki/MongoDB                                     *
-  *                                                                          *
-  * Run: npm install sails-mongo                                             *
-  *                                                                          *
-  ***************************************************************************/
-  someMongodbServer: {
-    adapter: 'sails-mongo',
-    host: 'localhost',
-    port: 27017,
-    // user: 'username',
-    // password: 'password',
-    // database: 'your_mongo_db_name_here'
-  },
-
-  /***************************************************************************
-  *                                                                          *
   * PostgreSQL is another officially supported relational database.          *
   * http://en.wikipedia.org/wiki/PostgreSQL                                  *
   *                                                                          *
@@ -76,22 +32,22 @@
   ***************************************************************************/
   postgresqlServer: {
     adapter: 'sails-postgresql',
-    host: process.env.HEROKU_POSTGRES_SNAKES_HOSTNAME,
-    user:  process.env.HEROKU_POSTGRES_SNAKES_USER,
-    password:  process.env.HEROKU_POSTGRES_SNAKES_PASSWORD,
-    database:  process.env.HEROKU_POSTGRES_SNAKES_DATABASE,
-    port: process.env.HEROKU_POSTGRES_SNAKES_PORT,
+    host: process.env.POSTGRES_HOSTNAME,
+    user:  process.env.POSTGRES_USER,
+    password:  process.env.POSTGRES_PASSWORD,
+    database:  process.env.POSTGRES_DATABASE,
+    port: process.env.POSTGRES_PORT,
     poolSize: 5,
     ssl: true
   },
 
 redis: {
     adapter: 'redis',
-   port: process.env.AZURE_REDIS_SNAKES_PORT,
-   host: process.env.AZURE_REDIS_SNAKES_HOSTNAME,
-   password:process.env.AZURE_REDIS_SNAKES_PASSWORD,
-   /*database: process.env.REDISTOGO_REDIS_SNAKES_DATABASE,*/
-   /*user: process.env.AZURE_REDIS_SNAKES_USER,*/
+   port: process.env.REDIS_SNAKES_PORT,
+   host: process.env.REDIS_SNAKES_HOSTNAME,
+   password:process.env.REDIS_SNAKES_PASSWORD,
+   //database: process.env.REDIS_SNAKES_DATABASE,
+   //user: process.env.AZURE_REDIS_SNAKES_USER,
    options: {
 
     // low-level configuration
@@ -113,31 +69,5 @@ redis: {
     database:  process.env.POSTGRES_SNAKES_DATABASE,
     port: process.env.POSTGRES_SNAKES_PORT,
     poolSize: 2
-  }/*,
-
-  redis_dev: {
-    adapter: 'redis',
-   port: 6379,
-   host: 'localhost',
-   password: null,
-   database: null,
-   options: {
-
-    // low-level configuration
-    // (redis driver options)
-    parser: 'hiredis',
-    return_buffers: false,
-    detect_buffers: false,
-    socket_nodelay: true,
-    no_ready_check: false,
-    enable_offline_queue: true
   }
-}*/
-
-  /***************************************************************************
-  *                                                                          *
-  * More adapters: https://github.com/balderdashy/sails                      *
-  *                                                                          *
-  ***************************************************************************/
-
 }

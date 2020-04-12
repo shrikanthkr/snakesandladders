@@ -1,0 +1,4 @@
+echo "Starting server"
+echo "********************"
+sleep 5
+npm start

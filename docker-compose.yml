@@ -1,0 +1,52 @@
+version: "3.7"
+services:
+    web:
+        build: .
+        container_name: "snakesandladders"
+        volumes:
+            - ./:/app
+            - pg-volume:/var/run/postgresql/
+            - 'redis_data:/bitnami/redis/data'
+            - node_modules:/app/node_modules
+        environment:
+            NODE_ENV: development
+            POSTGRES_HOSTNAME: postgres://db
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DATABASE: snakesandladders
+            POSTGRES_PORT: 5432
+            REDIS_SNAKES_PORT: 6379
+            REDIS_SNAKES_HOSTNAME: "redis"
+            REDIS_SNAKES_PASSWORD: "admin123"
+            REDIS_SNAKES_DATABASE: "root"
+        ports:
+            - "1337:1337"
+        depends_on: 
+            - db
+            - redis
+        links: 
+            - db
+            - redis
+    db:
+        image: "postgres"
+        ports:
+            - "5432:5432"
+        environment: 
+            POSTGRES_USER: "postgres"
+            POSTGRES_PASSWORD: "postgres"
+    redis:
+        image: 'bitnami/redis:5.0'
+        environment:
+        # ALLOW_EMPTY_PASSWORD is recommended only for development.
+        - REDIS_PASSWORD=admin123
+        - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+        ports:
+            - '6379:6379'
+        volumes:
+            - 'redis_data:/bitnami/redis/data'
+        
+volumes:
+    redis_data:
+        driver: local
+    pg-volume:
+    node_modules:

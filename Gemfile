@@ -1,4 +1,3 @@
 source "http://rubygems.org"
-gem "sass"
+gem "sass", "~>3.7.4"
 gem "compass"
-gem 'capistrano', '~> 3.4.0'
